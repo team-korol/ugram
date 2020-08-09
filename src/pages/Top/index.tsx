@@ -40,11 +40,11 @@ const Top: React.FC = () => {
         "channelTitle": "チャンネルタイトル"
       },
     }
-  ]
+  ];
   return (
     <>
-      {dammyData.map((data)=>(
-        <div className={style.card}>
+      {dammyData.map((data,i)=>(
+        <div className={style.card} key={i}>
           <YoutubeCard
             title={data.snippet.title}
             description={data.snippet.description}

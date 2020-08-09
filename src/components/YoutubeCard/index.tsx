@@ -13,7 +13,7 @@ const YoutubeCard: React.FC<Props> = ({
   description,
   thumbnailPath,
   cannelTitle,
-}) => {
+}:Props) => {
   return (
     <div className={style.card}>
       <img className={style.image} src={thumbnailPath} alt={title}/>

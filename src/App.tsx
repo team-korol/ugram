@@ -13,8 +13,10 @@ const App: React.FC = () => {
     <MyContext.Provider value={{ ...{ isSignIn, setIsSignIn } }}>
       <Router>
         <Header />
-        <Route exact path="/" component={Top} />
-        <Route path="/sign-in" component={SignIn} />
+        <main className="main">
+          <Route exact path="/" component={Top} />
+          <Route path="/sign-in" component={SignIn} />
+        </main>
       </Router>
     </MyContext.Provider>
   );
