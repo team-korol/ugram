@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Ugram",
+  "name": "ugram is smart youtube video player",
   "icons": [
     {
       "src": "favicon.ico",
