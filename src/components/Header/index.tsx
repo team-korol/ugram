@@ -11,7 +11,7 @@ const Header: React.FC = () => {
     <header className={style.header}>
       <div className={style.link}>
         <Link to="/">
-          <img src={logo} alt="ugram" width="100px" height="100%"/>
+          <img src={logo} alt="ugram" width="100px" height="100%" />
         </Link>
       </div>
       {!isSignIn && <Link to="/sign-in">sign-in</Link>}

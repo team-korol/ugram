@@ -3,48 +3,51 @@ import style from './index.module.css';
 import YoutubeCard from '../../components/YoutubeCard';
 
 const Top: React.FC = () => {
-  const dammyData =[
+  const dammyData = [
     {
-      "snippet": {
-        "title": "動画タイトル",
-        "description": "今日の晩ご飯は鰹節です",
-        "thumbnails": {
-          "default": {
-            "url": "https://i.ytimg.com/vi/3RfrECng4Kk/hqdefault.jpg?sqp=-oaymwEZCOADEI4CSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLAirvQzumYKQRDXkiYdqLJa_K2Bww",
-          }
+      snippet: {
+        title: '動画タイトル',
+        description: '今日の晩ご飯は鰹節です',
+        thumbnails: {
+          default: {
+            url:
+              'https://i.ytimg.com/vi/3RfrECng4Kk/hqdefault.jpg?sqp=-oaymwEZCOADEI4CSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLAirvQzumYKQRDXkiYdqLJa_K2Bww',
+          },
         },
-        "channelTitle": "チャンネルタイトル"
+        channelTitle: 'チャンネルタイトル',
       },
     },
     {
-      "snippet": {
-        "title": "動画タイトル",
-        "description": "今日の晩ご飯は鰹節です",
-        "thumbnails": {
-          "default": {
-            "url": "https://i.ytimg.com/vi/3RfrECng4Kk/hqdefault.jpg?sqp=-oaymwEZCOADEI4CSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLAirvQzumYKQRDXkiYdqLJa_K2Bww",
-          }
+      snippet: {
+        title: '動画タイトル',
+        description: '今日の晩ご飯は鰹節です',
+        thumbnails: {
+          default: {
+            url:
+              'https://i.ytimg.com/vi/3RfrECng4Kk/hqdefault.jpg?sqp=-oaymwEZCOADEI4CSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLAirvQzumYKQRDXkiYdqLJa_K2Bww',
+          },
         },
-        "channelTitle": "チャンネルタイトル"
+        channelTitle: 'チャンネルタイトル',
       },
     },
     {
-      "snippet": {
-        "title": "動画タイトル",
-        "description": "今日の晩ご飯は鰹節です",
-        "thumbnails": {
-          "default": {
-            "url": "https://i.ytimg.com/vi/3RfrECng4Kk/hqdefault.jpg?sqp=-oaymwEZCOADEI4CSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLAirvQzumYKQRDXkiYdqLJa_K2Bww",
-          }
+      snippet: {
+        title: '動画タイトル',
+        description: '今日の晩ご飯は鰹節です',
+        thumbnails: {
+          default: {
+            url:
+              'https://i.ytimg.com/vi/3RfrECng4Kk/hqdefault.jpg?sqp=-oaymwEZCOADEI4CSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLAirvQzumYKQRDXkiYdqLJa_K2Bww',
+          },
         },
-        "channelTitle": "チャンネルタイトル"
+        channelTitle: 'チャンネルタイトル',
       },
-    }
-  ]
+    },
+  ];
   return (
     <>
-      {dammyData.map((data)=>(
-        <div className={style.card}>
+      {dammyData.map((data, i) => (
+        <div className={style.card} key={i}>
           <YoutubeCard
             title={data.snippet.title}
             description={data.snippet.description}
