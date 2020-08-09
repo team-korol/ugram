@@ -5,12 +5,17 @@ import SignIn from './pages/SignIn';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 
-export const MyContext = React.createContext({ isSignIn: false });
+interface MyContextInterface {
+  isSignIn?: boolean;
+  setIsSignIn?: any;
+}
+
+export const MyContext = React.createContext<MyContextInterface>({});
 
 const App: React.FC = () => {
   const [isSignIn, setIsSignIn] = useState(false);
   return (
-    <MyContext.Provider value={{ ...{ isSignIn, setIsSignIn } }}>
+    <MyContext.Provider value={{ isSignIn, setIsSignIn }}>
       <Router>
         <Header />
         <main className="main">

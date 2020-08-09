@@ -1,7 +1,7 @@
 const apiKeys = {
-    YOUTUBE: {
-        value: '',
-    },
-  };
-  
-  export default apiKeys;
+  YOUTUBE: {
+    value: '',
+  },
+};
+
+export default apiKeys;

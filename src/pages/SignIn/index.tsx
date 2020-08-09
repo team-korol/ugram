@@ -1,12 +1,18 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import firebase from 'firebase/app';
 import googleSiginInImage from '../../assets/btn_google_signin.png';
 import 'firebase/auth';
+import { MyContext } from '../../App';
+import { RouteComponentProps } from 'react-router-dom';
 
-const SignIn: React.FC = () => {
+interface ChildComponentProps extends RouteComponentProps<any> {}
+
+const SignIn: React.FC<ChildComponentProps> = ({
+  history,
+}: ChildComponentProps) => {
   const provider = new firebase.auth.GoogleAuthProvider();
   provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-
+  const { setIsSignIn } = useContext(MyContext);
   const handleClick = useCallback(() => {
     firebase
       .auth()
@@ -16,6 +22,8 @@ const SignIn: React.FC = () => {
         const user = result.user;
         console.log(token);
         console.log(user);
+        setIsSignIn(true);
+        history.push('/');
       })
       .catch(({ code, message }) => {
         console.error(code, message);
