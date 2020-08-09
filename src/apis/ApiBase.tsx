@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const TIMEOUT_MILSEC = 60000;
 
-export const get = (url = '', data = {}, options = {}) => {
+export const get = (url: string, data = {}, options = {}) => {
 
     const request = axios.create({
       timeout: TIMEOUT_MILSEC,
