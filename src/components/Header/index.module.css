@@ -1,11 +1,25 @@
 .header {
   display: flex;
   align-items: center;
-  padding: 8px 16px;
+  padding: 14px 16px;
   box-shadow: 0 4px 2px -2px rgba(0,0,0,0.2)
 }
 
 .link {
   display: block;
   flex-grow: 1;
+}
+
+.googleSigin {
+  width: 130px;
+  margin-right: 8px;
+}
+
+.userIcon {
+  margin-right: 8px;
+  border-radius: 50%;
+  width: 30px;
+}
+
+.serchIcon {
 }

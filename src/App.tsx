@@ -1,22 +1,25 @@
 import React, { useState } from 'react';
 import Header from './components/Header';
 import Top from './pages/Top';
-import SignIn from './pages/SignIn';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import { Helmet } from 'react-helmet';
 
 interface MyContextInterface {
   isSignIn?: boolean;
-  setIsSignIn?: any;
+  setIsSignIn?: React.Dispatch<React.SetStateAction<boolean>>;
+  userInfo?: any;
+  setUserInfo?: React.Dispatch<React.SetStateAction<{}>>;
 }
 
 export const MyContext = React.createContext<MyContextInterface>({});
 
 const App: React.FC = () => {
   const [isSignIn, setIsSignIn] = useState(false);
+  const [userInfo, setUserInfo] = useState({});
   return (
-    <MyContext.Provider value={{ isSignIn, setIsSignIn }}>
+    <MyContext.Provider
+      value={{ isSignIn, setIsSignIn, userInfo, setUserInfo }}
+    >
       <Helmet
         title="Ugram"
         meta={[
@@ -62,13 +65,10 @@ const App: React.FC = () => {
           },
         ]}
       />
-      <Router>
-        <Header />
-        <main className="main">
-          <Route exact path="/" component={Top} />
-          <Route path="/sign-in" component={SignIn} />
-        </main>
-      </Router>
+      <Header />
+      <main className="main">
+        <Top />
+      </main>
     </MyContext.Provider>
   );
 };

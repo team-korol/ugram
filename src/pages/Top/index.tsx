@@ -88,30 +88,32 @@ const Top: React.FC = () => {
   return (
     <>
       <Helmet title="Top | Ugram" />
-      {dammyData.map((data, i) => {
-        let description = data.snippet.description;
-        if (20 <= data.snippet.description.length) {
-          description = `${data.snippet.description.substr(0, 20)}...`;
-        }
-        return (
-          <div
-            className={style.card}
-            key={i}
-            onClick={handleCardClick}
-            data-title={data.snippet.title}
-            data-description={data.snippet.description}
-            data-video-id={data.snippet.contentDetails.upload.videoId}
-            data-channel-title={data.snippet.channelTitle}
-          >
-            <YoutubeCard
-              title={data.snippet.title}
-              description={description}
-              thumbnailPath={data.snippet.thumbnails.default.url}
-              channelTitle={data.snippet.channelTitle}
-            />
-          </div>
-        );
-      })}
+      <div className={style.cardWrapper}>
+        {dammyData.map((data, i) => {
+          let description = data.snippet.description;
+          if (20 <= data.snippet.description.length) {
+            description = `${data.snippet.description.substr(0, 20)}...`;
+          }
+          return (
+            <div
+              className={style.card}
+              key={i}
+              onClick={handleCardClick}
+              data-title={data.snippet.title}
+              data-description={data.snippet.description}
+              data-video-id={data.snippet.contentDetails.upload.videoId}
+              data-channel-title={data.snippet.channelTitle}
+            >
+              <YoutubeCard
+                title={data.snippet.title}
+                description={description}
+                thumbnailPath={data.snippet.thumbnails.default.url}
+                channelTitle={data.snippet.channelTitle}
+              />
+            </div>
+          );
+        })}
+      </div>
       <UgramModal isShow={isShowModal} onCloseButtonHandler={HandleModalClick}>
         <YoutubePlayer
           title={modalData.title}
