@@ -5,7 +5,6 @@ import SignIn from './pages/SignIn';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import { Helmet } from 'react-helmet';
-import ugramLogo from './assets/Ugram_logo_full.png';
 
 interface MyContextInterface {
   isSignIn?: boolean;
@@ -35,7 +34,7 @@ const App: React.FC = () => {
           },
           {
             property: 'og:image',
-            content: ugramLogo,
+            content: `${process.env.PUBLIC_URL}/Ugram_logo_full.png`,
           },
           {
             property: 'og:type',
