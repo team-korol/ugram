@@ -14,7 +14,7 @@ const YoutubePlayer: React.FC<Props> = ({
   channelTitle,
   videoId,
 }: Props) => {
-  const videoSrc = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+  const videoSrc = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
   return (
     <div className={style.card}>
       <div className={style.container}>

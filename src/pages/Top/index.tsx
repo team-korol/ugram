@@ -100,7 +100,7 @@ const Top: React.FC = () => {
             onClick={handleCardClick}
             data-title={data.snippet.title}
             data-description={data.snippet.description}
-            data-video-Id={data.snippet.contentDetails.upload.videoId}
+            data-video-id={data.snippet.contentDetails.upload.videoId}
             data-channel-title={data.snippet.channelTitle}
           >
             <YoutubeCard

@@ -13,6 +13,9 @@ const SignIn: React.FC<ChildComponentProps> = ({
 }: ChildComponentProps) => {
   const provider = new firebase.auth.GoogleAuthProvider();
   provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+  provider.addScope('https://www.googleapis.com/auth/youtube');
+  provider.addScope('https://www.googleapis.com/auth/youtube.force-ssl');
+  provider.addScope('https://www.googleapis.com/auth/youtube.readonly');
   const { setIsSignIn } = useContext(MyContext);
   const handleClick = useCallback(() => {
     firebase
@@ -20,9 +23,13 @@ const SignIn: React.FC<ChildComponentProps> = ({
       .signInWithPopup(provider)
       .then((result: any) => {
         const token = result.credential.accessToken;
-        const user = result.user;
-        console.log(token);
-        console.log(user);
+        //TODO: テスト確認次第消す
+        //@see https://developers.google.com/youtube/v3/guides/auth/client-side-web-apps?hl=ja
+        fetch(`https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${token}`)
+        .then(response => response.json())
+        .then(data => {
+          console.log('test結果',data)
+        });
         setIsSignIn(true);
         history.push('/');
       })
