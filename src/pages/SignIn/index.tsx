@@ -4,6 +4,7 @@ import googleSiginInImage from '../../assets/btn_google_signin.png';
 import 'firebase/auth';
 import { MyContext } from '../../App';
 import { RouteComponentProps } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 interface ChildComponentProps extends RouteComponentProps<any> {}
 
@@ -28,12 +29,15 @@ const SignIn: React.FC<ChildComponentProps> = ({
       .catch(({ code, message }) => {
         console.error(code, message);
       });
-  }, [provider]);
+  }, [provider, history, setIsSignIn]);
 
   return (
-    <div onClick={handleClick}>
-      <img src={googleSiginInImage} alt="google sigin in button" />
-    </div>
+    <>
+      <Helmet title="Sign in | Ugram" />
+      <div onClick={handleClick}>
+        <img src={googleSiginInImage} alt="google sigin in button" />
+      </div>
+    </>
   );
 };
 

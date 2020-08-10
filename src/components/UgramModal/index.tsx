@@ -6,26 +6,31 @@ type Props = {
   className?: string;
   children: React.ReactNode;
   isShow: boolean;
-  onCloseButtonHandler?: (event:React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  onCloseButtonHandler?: (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => void;
 };
 
 const UgramModal: React.FC<Props> = ({
   className,
   children,
   isShow,
-  onCloseButtonHandler
+  onCloseButtonHandler,
 }: Props) => {
-  const handleClick = useCallback(e => {
-    if(e.target !== e.currentTarget){
-      return;
-    }
-    onCloseButtonHandler && onCloseButtonHandler(e);
-  },[onCloseButtonHandler]);
+  const handleClick = useCallback(
+    (e) => {
+      if (e.target !== e.currentTarget) {
+        return;
+      }
+      onCloseButtonHandler && onCloseButtonHandler(e);
+    },
+    [onCloseButtonHandler]
+  );
   return (
     <>
       {isShow && (
         <div
-          className={classNames([style.modal], {className})}
+          className={classNames([style.modal], { className })}
           onClick={handleClick}
         >
           {children}

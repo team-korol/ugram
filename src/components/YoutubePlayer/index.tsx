@@ -4,22 +4,31 @@ import style from './index.module.css';
 type Props = {
   title: string;
   description: string;
-  thumbnailPath: string;
-  cannelTitle: string;
+  channelTitle: string;
+  videoId: string;
 };
 
 const YoutubePlayer: React.FC<Props> = ({
   title,
   description,
-  thumbnailPath,
-  cannelTitle,
+  channelTitle,
+  videoId,
 }: Props) => {
+  const videoSrc = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
   return (
     <div className={style.card}>
-      <img className={style.image} src={thumbnailPath} alt={title} />
+      <div className={style.container}>
+        <iframe
+          className={style.player}
+          title={title}
+          width="100%"
+          height="100%"
+          src={videoSrc}
+        />
+      </div>
       <div className={style.wrapper}>
         <h3 className={style.title}>{title}</h3>
-        <p className={style.cannel}>cannel: {cannelTitle}</p>
+        <p className={style.channel}>channel: {channelTitle}</p>
         <p className={style.description}>description: {description}</p>
       </div>
     </div>
