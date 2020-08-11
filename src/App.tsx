@@ -9,6 +9,8 @@ interface MyContextInterface {
   setIsSignIn?: React.Dispatch<React.SetStateAction<boolean>>;
   userInfo?: any;
   setUserInfo?: React.Dispatch<React.SetStateAction<{}>>;
+  accessToken?: string;
+  setAccessToken?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const MyContext = React.createContext<MyContextInterface>({});
@@ -18,7 +20,12 @@ const App: React.FC = () => {
   const [userInfo, setUserInfo] = useState({});
   return (
     <MyContext.Provider
-      value={{ isSignIn, setIsSignIn, userInfo, setUserInfo }}
+      value={{
+        isSignIn,
+        setIsSignIn,
+        userInfo,
+        setUserInfo,
+      }}
     >
       <Helmet
         title="Ugram"

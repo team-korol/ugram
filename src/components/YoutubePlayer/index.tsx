@@ -1,30 +1,41 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import style from './index.module.css';
+import { useYouTubeVideos } from '../../hooks/useYouTubeVideos';
+import { MyContext } from '../../App';
 
 type Props = {
   title: string;
   description: string;
   channelTitle: string;
-  videoId: string;
+  id: string;
 };
 
 const YoutubePlayer: React.FC<Props> = ({
   title,
   description,
   channelTitle,
-  videoId,
+  id,
 }: Props) => {
-  const videoSrc = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
+  const { userInfo } = useContext(MyContext);
+  const { item } = useYouTubeVideos({
+    token: userInfo?.credential?.accessToken,
+    id: id,
+  });
+  const videoSrc = !!item.videoId
+    ? `https://www.youtube.com/embed/${item.videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`
+    : '';
   return (
     <div className={style.card}>
       <div className={style.container}>
-        <iframe
-          className={style.player}
-          title={title}
-          width="100%"
-          height="100%"
-          src={videoSrc}
-        />
+        {!!videoSrc && (
+          <iframe
+            className={style.player}
+            title={title}
+            width="100%"
+            height="100%"
+            src={videoSrc}
+          />
+        )}
       </div>
       <div className={style.wrapper}>
         <h3 className={style.title}>{title}</h3>

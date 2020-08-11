@@ -4,8 +4,9 @@ import React, { useCallback, useContext } from 'react';
 import { RiSearch2Line } from 'react-icons/ri';
 import { MyContext } from '../../App';
 import googleSiginInImage from '../../assets/btn_google_signin.png';
-import logo from '../../logo_full.svg';
+import logo from '../../assets/logo_full.svg';
 import style from './index.module.css';
+import { getActivities } from '../../apis';
 
 const Header: React.FC = () => {
   const provider = new firebase.auth.GoogleAuthProvider();
@@ -16,12 +17,18 @@ const Header: React.FC = () => {
   const { isSignIn, userInfo, setIsSignIn, setUserInfo } = useContext(
     MyContext
   );
-  const handleClick = useCallback(() => {
+  const handleClick = useCallback(async () => {
     firebase
       .auth()
       .signInWithPopup(provider)
       .then((result: any) => {
         const token = result.credential.accessToken;
+        const { activities }: any = getActivities({
+          access_token: token,
+          part: 'id',
+          mine: true,
+        });
+        console.log(activities);
         //TODO: テスト確認次第消す
         //@see https://developers.google.com/youtube/v3/guides/auth/client-side-web-apps?hl=ja
         fetch(
