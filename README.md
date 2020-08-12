@@ -1,5 +1,9 @@
 # Ugram
 
+<img width="300" src="https://user-images.githubusercontent.com/45055030/89927896-fb943300-dc41-11ea-90ac-8b89d694faf5.png">
+
+### Ugram is youtube player
+
 ## Available Scripts
 
 In the project directory, you can run:
