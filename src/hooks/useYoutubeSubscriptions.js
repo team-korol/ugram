@@ -16,7 +16,7 @@ const useYoutubeSubscriptions = ({ token: access_token }) => {
         part: 'snippet',
         mine: true,
         maxResults: 18,
-        order: 'unread'
+        order: 'unread',
       });
       setItems(items);
     })();
@@ -37,10 +37,9 @@ const useYoutubeSubscriptions = ({ token: access_token }) => {
           channelId: snippet.resourceId.channelId,
         })
       )
-    ).then(ress => {
+    ).then((ress) => {
       console.log(ress);
-      debugger;
-      const dataAll = ress.map(res => res.items[0]);
+      const dataAll = ress.map((res) => res.items[0]);
       const sortedData = dataAll.sort((a, b) => {
         const aDate = new Date(dayjs().format(a.snippet.publishedAt));
         const bDate = new Date(dayjs().format(b.snippet.publishedAt));

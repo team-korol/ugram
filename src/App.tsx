@@ -44,7 +44,7 @@ const App: React.FC = () => {
           },
           {
             property: 'og:image',
-            content: `${process.env.PUBLIC_URL}/Ugram_logo_full.png`,
+            content: 'https://ugram-c51b7.web.app/Ugram_logo_full.png',
           },
           {
             property: 'og:type',

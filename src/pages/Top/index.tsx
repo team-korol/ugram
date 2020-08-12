@@ -64,8 +64,20 @@ const Top: React.FC = () => {
               </div>
             );
           })}
-        {!items && !!Object.keys(userInfo).length && (<div>...now Loading</div>)}
-        {!Object.keys(userInfo).length && (<div>ログインしてください</div>)}
+        {!items &&
+          !!Object.keys(userInfo).length &&
+          [...new Array(18)].map((_, i) => (
+            <div className={style.card} key={i}>
+              <YoutubeCard
+                title=""
+                description=""
+                thumbnailPath=""
+                channelTitle=""
+                isSkelton={true}
+              />
+            </div>
+          ))}
+        {!Object.keys(userInfo).length && <div>Please sign in</div>}
       </div>
       <UgramModal isShow={isShowModal} onCloseButtonHandler={HandleModalClick}>
         <YoutubePlayer
