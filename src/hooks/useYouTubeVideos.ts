@@ -13,7 +13,6 @@ const useYouTubeVideos = ({
   id,
 }: useYouTubeVideosProps) => {
   const [item, setItem] = useState<StateType>();
-
   useEffect(() => {
     if (!access_token) {
       return;

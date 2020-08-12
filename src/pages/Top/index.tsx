@@ -13,7 +13,7 @@ const Top: React.FC = () => {
     title: '',
     description: '',
     channelTitle: '',
-    id: '',
+    videoId: '',
   });
   const { userInfo } = useContext(MyContext);
   const HandleModalClick = useCallback(() => {
@@ -25,7 +25,7 @@ const Top: React.FC = () => {
         title: e.currentTarget.dataset.title,
         description: e.currentTarget.dataset.description,
         channelTitle: e.currentTarget.dataset.channelTitle,
-        id: e.currentTarget.dataset.Id,
+        videoId: e.currentTarget.dataset.videoId,
       });
       setIsShowModal(true);
     },
@@ -34,7 +34,6 @@ const Top: React.FC = () => {
   const { items }: { items: any } = useYoutubeSubscriptions({
     token: userInfo?.credential?.accessToken,
   });
-
   return (
     <>
       <Helmet title="Top | Ugram" />
@@ -52,7 +51,7 @@ const Top: React.FC = () => {
                 onClick={handleCardClick}
                 data-title={data.snippet.title}
                 data-description={data.snippet.description}
-                data-id={data.Id}
+                data-video-id={data.id.videoId}
                 data-channel-title={data.snippet.channelTitle}
               >
                 <YoutubeCard
@@ -83,7 +82,7 @@ const Top: React.FC = () => {
         <YoutubePlayer
           title={modalData.title}
           description={modalData.description}
-          id={modalData.id}
+          videoId={modalData.videoId}
           channelTitle={modalData.channelTitle}
         />
       </UgramModal>

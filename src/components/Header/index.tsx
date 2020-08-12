@@ -6,11 +6,9 @@ import { MyContext } from '../../App';
 import googleSiginInImage from '../../assets/btn_google_signin.png';
 import logo from '../../assets/logo_full.svg';
 import style from './index.module.css';
-import { getActivities } from '../../apis';
 
 const Header: React.FC = () => {
   const provider = new firebase.auth.GoogleAuthProvider();
-  provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
   provider.addScope('https://www.googleapis.com/auth/youtube');
   provider.addScope('https://www.googleapis.com/auth/youtube.force-ssl');
   provider.addScope('https://www.googleapis.com/auth/youtube.readonly');
@@ -22,22 +20,6 @@ const Header: React.FC = () => {
       .auth()
       .signInWithPopup(provider)
       .then((result: any) => {
-        const token = result.credential.accessToken;
-        const { activities }: any = getActivities({
-          access_token: token,
-          part: 'id',
-          mine: true,
-        });
-        console.log(activities);
-        //TODO: テスト確認次第消す
-        //@see https://developers.google.com/youtube/v3/guides/auth/client-side-web-apps?hl=ja
-        fetch(
-          `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${token}`
-        )
-          .then((response) => response.json())
-          .then((data) => {
-            console.log('test結果', data);
-          });
         setIsSignIn && setIsSignIn(true);
         setUserInfo && setUserInfo(result);
       })

@@ -12,8 +12,8 @@ export const getVideoList = async (params = {}, options = {}) => {
 };
 
 export const getSearch = async (params = {}, options = {}) => {
-  const { result }: any = await get(API_GET_SEARCH, params, options);
-  return { result };
+  const { items }: any = await get(API_GET_SEARCH, params, options);
+  return { items };
 };
 
 export const getActivities = async (params = {}, options = {}) => {

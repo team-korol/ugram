@@ -38,7 +38,6 @@ const useYoutubeSubscriptions = ({ token: access_token }) => {
         })
       )
     ).then((ress) => {
-      console.log(ress);
       const dataAll = ress.map((res) => res.items[0]);
       const sortedData = dataAll.sort((a, b) => {
         const aDate = new Date(dayjs().format(a.snippet.publishedAt));
