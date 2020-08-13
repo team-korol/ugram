@@ -21,13 +21,20 @@ const useYouTubeVideos = ({
       return;
     }
     (() => {
-      const res: any = getVideoList({
-        access_token,
-        part: ['id'],
-        id,
-        maxResults: 1,
-      });
-      setItem(res);
+      try {
+        const res: any = getVideoList({
+          access_token,
+          part: ['id'],
+          id,
+          maxResults: 1,
+        });
+        setItem(res);
+      } catch (error) {
+        console.log(error);
+        if(error.status === 403) {
+          console.error('youtube api error.');
+        }
+      }
     })();
   }, [access_token, id]);
 

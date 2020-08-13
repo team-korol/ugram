@@ -11,14 +11,21 @@ const useYoutubeSubscriptions = ({ token: access_token }) => {
       return;
     }
     (async () => {
-      const { items } = await getSubscriptions({
-        access_token,
-        part: 'snippet',
-        mine: true,
-        maxResults: 18,
-        order: 'unread',
-      });
-      setItems(items);
+      try {
+        const { items } = await getSubscriptions({
+          access_token,
+          part: 'snippet',
+          mine: true,
+          maxResults: 18,
+          order: 'unread',
+        });
+        setItems(items);
+      } catch(error) {
+        console.log(error);
+        if(error.status === 403) {
+          console.error('youtube api error.');
+        }
+      }
     })();
   }, [access_token]);
 
@@ -45,6 +52,11 @@ const useYoutubeSubscriptions = ({ token: access_token }) => {
         return bDate - aDate;
       });
       setSortedItems(sortedData);
+    }).catch((error) => {
+      console.log(error);
+      if(error.status === 403) {
+        console.error('youtube api error.');
+      }
     });
   }, [access_token, items]);
 
