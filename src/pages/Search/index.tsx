@@ -4,10 +4,11 @@ import { MyContext } from '../../App';
 import UgramModal from '../../components/UgramModal';
 import YoutubeCard from '../../components/YoutubeCard';
 import YoutubePlayer from '../../components/YoutubePlayer';
-//import { useYoutubeSubscriptions } from '../../hooks/useYoutubeSubscriptions';
 import style from './index.module.css';
+import { useYouTubeSearch } from '../../hooks/useYoutubeSearch';
 
-const Top: React.FC = () => {
+const Search: React.FC = () => {
+  const { userInfo, serchQuery } = useContext(MyContext);
   const [isShowModal, setIsShowModal] = useState(false);
   const [modalData, setModalData] = useState({
     title: '',
@@ -15,7 +16,6 @@ const Top: React.FC = () => {
     channelTitle: '',
     videoId: '',
   });
-  const { userInfo } = useContext(MyContext);
   const HandleModalClick = useCallback(() => {
     setIsShowModal(false);
   }, [setIsShowModal]);
@@ -31,14 +31,13 @@ const Top: React.FC = () => {
     },
     [setModalData, setIsShowModal]
   );
-  // TODO: 検索しすぎのため一時的に止める
-  // const { items }: { items: any } = useYoutubeSubscriptions({
-  //   token: userInfo?.credential?.accessToken,
-  // });
-  const items: any = undefined;
+  const { items }: { items: any } = useYouTubeSearch({
+    token: userInfo?.credential?.accessToken,
+    query: serchQuery,
+  });
   return (
     <>
-      <Helmet title="Top | Ugram" />
+      <Helmet title="Search | Ugram" />
       <div className={style.cardWrapper}>
         {!!items &&
           items.map((data: any, i: number) => {
@@ -92,4 +91,4 @@ const Top: React.FC = () => {
   );
 };
 
-export default Top;
+export default Search;

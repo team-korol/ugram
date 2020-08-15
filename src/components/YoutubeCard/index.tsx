@@ -22,16 +22,16 @@ const YoutubeCard: React.FC<Props> = ({
     <>
       {isSkelton && (
         <div className={style.cardSkelton}>
-          <div className={classNames('skeleton', [style.imageSkelton])} />
+          <div className={classNames('pulseAnimation', [style.imageSkelton])} />
           <div className={style.wrapperSkelton}>
             <h3 className={style.titleSkelton}>
-              <div className="skeleton" />
+              <div className="pulseAnimation" />
             </h3>
             <p className={style.channelSkelton}>
-              <div className="skeleton" />
+              <div className="pulseAnimation" />
             </p>
             <p className={style.descriptionSkelton}>
-              <div className="skeleton" />
+              <div className="pulseAnimation" />
             </p>
           </div>
         </div>

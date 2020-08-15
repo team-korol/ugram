@@ -20,9 +20,9 @@ const useYoutubeSubscriptions = ({ token: access_token }) => {
           order: 'unread',
         });
         setItems(items);
-      } catch(error) {
+      } catch (error) {
         console.log(error);
-        if(error.status === 403) {
+        if (error.status === 403) {
           console.error('youtube api error.');
         }
       }
@@ -44,20 +44,22 @@ const useYoutubeSubscriptions = ({ token: access_token }) => {
           channelId: snippet.resourceId.channelId,
         })
       )
-    ).then((ress) => {
-      const dataAll = ress.map((res) => res.items[0]);
-      const sortedData = dataAll.sort((a, b) => {
-        const aDate = new Date(dayjs().format(a.snippet.publishedAt));
-        const bDate = new Date(dayjs().format(b.snippet.publishedAt));
-        return bDate - aDate;
+    )
+      .then((ress) => {
+        const dataAll = ress.map((res) => res.items[0]);
+        const sortedData = dataAll.sort((a, b) => {
+          const aDate = new Date(dayjs().format(a.snippet.publishedAt));
+          const bDate = new Date(dayjs().format(b.snippet.publishedAt));
+          return bDate - aDate;
+        });
+        setSortedItems(sortedData);
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.status === 403) {
+          console.error('youtube api error.');
+        }
       });
-      setSortedItems(sortedData);
-    }).catch((error) => {
-      console.log(error);
-      if(error.status === 403) {
-        console.error('youtube api error.');
-      }
-    });
   }, [access_token, items]);
 
   return { items: sortedItems };

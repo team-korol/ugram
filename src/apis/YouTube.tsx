@@ -7,7 +7,7 @@ import {
 } from '../routes';
 
 export const getVideoList = async (params = {}, options = {}) => {
-  try{
+  try {
     const { list }: any = await get(API_GET_VIDEO_LIST, params, options);
     return { list };
   } catch (error) {
@@ -16,7 +16,7 @@ export const getVideoList = async (params = {}, options = {}) => {
 };
 
 export const getSearch = async (params = {}, options = {}) => {
-  try{
+  try {
     const { items }: any = await get(API_GET_SEARCH, params, options);
     return { items };
   } catch (error) {
@@ -25,7 +25,7 @@ export const getSearch = async (params = {}, options = {}) => {
 };
 
 export const getActivities = async (params = {}, options = {}) => {
-  try{
+  try {
     const { activities }: any = await get(API_GET_ACTIVITIES, params, options);
     return { activities };
   } catch (error) {
@@ -34,7 +34,7 @@ export const getActivities = async (params = {}, options = {}) => {
 };
 
 export const getSubscriptions = async (params = {}, options = {}) => {
-  try{
+  try {
     const { items }: any = await get(API_GET_SUBSCRIPTIONS, params, options);
     return { items };
   } catch (error) {

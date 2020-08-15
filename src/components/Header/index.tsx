@@ -1,51 +1,112 @@
-import firebase from 'firebase/app';
 import 'firebase/auth';
-import React, { useCallback, useContext } from 'react';
-import { RiSearch2Line } from 'react-icons/ri';
+import React, { useContext, useCallback, useState } from 'react';
+import { RiSearch2Line, RiCloseLine } from 'react-icons/ri';
 import { MyContext } from '../../App';
 import googleSiginInImage from '../../assets/btn_google_signin.png';
 import logo from '../../assets/logo_full.svg';
 import style from './index.module.css';
+import { CSSTransition } from 'react-transition-group';
+import '../../animation/index.css';
+import { PAGE_STATUS, ICON } from '../../constants';
 
-const Header: React.FC = () => {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  provider.addScope('https://www.googleapis.com/auth/youtube');
-  provider.addScope('https://www.googleapis.com/auth/youtube.force-ssl');
-  provider.addScope('https://www.googleapis.com/auth/youtube.readonly');
-  const { isSignIn, userInfo, setIsSignIn, setUserInfo } = useContext(
-    MyContext
+type Props = {
+  handleSignInButtonClick:
+    | ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void)
+    | undefined;
+};
+
+const Header: React.FC<Props> = ({ handleSignInButtonClick }: Props) => {
+  const { userInfo, setPageStatus, setSerchQuery } = useContext(MyContext);
+
+  // Ugram logo関連
+  const handleLogoClick = useCallback(() => {
+    setPageStatus && setPageStatus(PAGE_STATUS.TOP);
+  }, []);
+
+  // 検索表示関連
+  const [isSearchOpened, setIsSearchOpened] = useState(false);
+  const [iconStatus, setIconStatus] = useState<ICON>(ICON.SERCH);
+  const handleIconClick = (status: ICON) => () => {
+    setIconStatus(status);
+    setIsSearchOpened(!isSearchOpened);
+  };
+
+  // form入力関連
+  const [value, setValue] = useState('');
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setValue(e.currentTarget.value);
+    },
+    [setValue]
   );
-  const handleClick = useCallback(async () => {
-    firebase
-      .auth()
-      .signInWithPopup(provider)
-      .then((result: any) => {
-        setIsSignIn && setIsSignIn(true);
-        setUserInfo && setUserInfo(result);
-      })
-      .catch(({ code, message }) => {
-        console.error(`${code}: ${message}`);
-      });
-  }, [provider, setIsSignIn, setUserInfo]);
+  const handleSubmit = useCallback(
+    (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      setSerchQuery && setSerchQuery(value);
+      setPageStatus && setPageStatus(PAGE_STATUS.SEARCH);
+    },
+    [value, setSerchQuery, setPageStatus]
+  );
 
   return (
     <header className={style.header}>
-      <div className={style.link}>
-        <img src={logo} alt="ugram" width="100px" height="100%" />
+      <div className={style.head}>
+        <h1 className={style.link}>
+          <img
+            src={logo}
+            alt="ugram"
+            width="100px"
+            height="100%"
+            onClick={handleLogoClick}
+          />
+        </h1>
+        {!userInfo.user && (
+          <div className={style.googleSigin} onClick={handleSignInButtonClick}>
+            <img src={googleSiginInImage} alt="google sigin in button" />
+          </div>
+        )}
+        {userInfo.user && (
+          <img
+            className={style.userIcon}
+            src={userInfo?.user?.photoURL}
+            alt="user Icon"
+          />
+        )}
+        {iconStatus === ICON.SERCH && (
+          <RiSearch2Line
+            size="1.5rem"
+            className={style.navIcon}
+            onClick={handleIconClick(ICON.CLOSE)}
+          />
+        )}
+        {iconStatus === ICON.CLOSE && (
+          <RiCloseLine
+            size="1.5rem"
+            className={style.navIcon}
+            onClick={handleIconClick(ICON.SERCH)}
+          />
+        )}
       </div>
-      {!isSignIn && (
-        <div className={style.googleSigin} onClick={handleClick}>
-          <img src={googleSiginInImage} alt="google sigin in button" />
-        </div>
-      )}
-      {isSignIn && (
-        <img
-          className={style.userIcon}
-          src={userInfo?.user?.photoURL}
-          alt="user Icon"
-        />
-      )}
-      <RiSearch2Line size="1.5rem" className={style.serchIcon} />
+      <CSSTransition
+        in={isSearchOpened}
+        timeout={{
+          enter: 300,
+          exit: 200,
+        }}
+        classNames="glowAnimation"
+        unmountOnExit
+        onExited={() => setIsSearchOpened(false)}
+      >
+        <form className={style.form} onSubmit={handleSubmit}>
+          <input
+            className={style.input}
+            placeholder="Please enter a keyword to search"
+            type="text"
+            value={value}
+            onChange={handleChange}
+          />
+        </form>
+      </CSSTransition>
     </header>
   );
 };

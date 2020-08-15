@@ -1,30 +1,52 @@
-import React, { useState } from 'react';
-import Header from './components/Header';
-import Top from './pages/Top';
-import './App.css';
+import firebase from 'firebase/app';
+import React, { useCallback, useState } from 'react';
 import { Helmet } from 'react-helmet';
+import './App.css';
+import Header from './components/Header';
+import { PAGE_STATUS } from './constants';
+import Search from './pages/Search';
+import Top from './pages/Top';
 
 interface MyContextInterface {
-  isSignIn?: boolean;
-  setIsSignIn?: React.Dispatch<React.SetStateAction<boolean>>;
   userInfo?: any;
   setUserInfo?: React.Dispatch<React.SetStateAction<{}>>;
-  accessToken?: string;
-  setAccessToken?: React.Dispatch<React.SetStateAction<string>>;
+  pageStatus?: PAGE_STATUS;
+  setPageStatus?: React.Dispatch<React.SetStateAction<PAGE_STATUS>>;
+  serchQuery?: string;
+  setSerchQuery?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const MyContext = React.createContext<MyContextInterface>({});
 
 const App: React.FC = () => {
-  const [isSignIn, setIsSignIn] = useState(false);
   const [userInfo, setUserInfo] = useState({});
+  const [pageStatus, setPageStatus] = useState<PAGE_STATUS>(PAGE_STATUS.TOP);
+  const [serchQuery, setSerchQuery] = useState('');
+
+  const handleSignInButtonClick = useCallback(() => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    provider.addScope('https://www.googleapis.com/auth/youtube');
+    provider.addScope('https://www.googleapis.com/auth/youtube.force-ssl');
+    provider.addScope('https://www.googleapis.com/auth/youtube.readonly');
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then((result) => {
+        setUserInfo && setUserInfo(result);
+      })
+      .catch((error) => {
+        console.error(error.code, error.message);
+      });
+  }, [setUserInfo]);
   return (
     <MyContext.Provider
       value={{
-        isSignIn,
-        setIsSignIn,
         userInfo,
         setUserInfo,
+        pageStatus,
+        setPageStatus,
+        serchQuery,
+        setSerchQuery,
       }}
     >
       <Helmet
@@ -72,9 +94,10 @@ const App: React.FC = () => {
           },
         ]}
       />
-      <Header />
+      <Header handleSignInButtonClick={handleSignInButtonClick} />
       <main className="main">
-        <Top />
+        {pageStatus === PAGE_STATUS.SEARCH && <Search />}
+        {pageStatus === PAGE_STATUS.TOP && <Top />}
       </main>
     </MyContext.Provider>
   );

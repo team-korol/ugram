@@ -31,7 +31,7 @@ const useYouTubeVideos = ({
         setItem(res);
       } catch (error) {
         console.log(error);
-        if(error.status === 403) {
+        if (error.status === 403) {
           console.error('youtube api error.');
         }
       }
