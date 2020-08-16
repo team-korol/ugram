@@ -8,6 +8,8 @@ type Props = {
   description: string;
   thumbnailPath: string;
   channelTitle: string;
+  width?: number | string;
+  height?: number | string;
   isSkelton?: boolean;
 };
 
@@ -16,6 +18,8 @@ const YoutubeCard: React.FC<Props> = ({
   description,
   thumbnailPath,
   channelTitle,
+  width = 'auto',
+  height = 'auto',
   isSkelton,
 }: Props) => {
   return (
@@ -38,7 +42,13 @@ const YoutubeCard: React.FC<Props> = ({
       )}
       {!isSkelton && (
         <div className={style.card}>
-          <img className={style.image} src={thumbnailPath} alt={title} />
+          <img
+            className={style.image}
+            src={thumbnailPath}
+            width={width}
+            height={height}
+            alt={title}
+          />
           <div className={style.wrapper}>
             <h3 className={style.title}>{title}</h3>
             <p className={style.channel}>channel: {channelTitle}</p>

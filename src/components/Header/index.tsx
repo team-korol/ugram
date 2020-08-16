@@ -21,7 +21,7 @@ const Header: React.FC<Props> = ({ handleSignInButtonClick }: Props) => {
   // Ugram logo関連
   const handleLogoClick = useCallback(() => {
     setPageStatus && setPageStatus(PAGE_STATUS.TOP);
-  }, []);
+  }, [setPageStatus]);
 
   // 検索表示関連
   const [isSearchOpened, setIsSearchOpened] = useState(false);
@@ -74,14 +74,14 @@ const Header: React.FC<Props> = ({ handleSignInButtonClick }: Props) => {
         )}
         {iconStatus === ICON.SERCH && (
           <RiSearch2Line
-            size="1.5rem"
+            size="30px"
             className={style.navIcon}
             onClick={handleIconClick(ICON.CLOSE)}
           />
         )}
         {iconStatus === ICON.CLOSE && (
           <RiCloseLine
-            size="1.5rem"
+            size="30px"
             className={style.navIcon}
             onClick={handleIconClick(ICON.SERCH)}
           />
@@ -89,10 +89,7 @@ const Header: React.FC<Props> = ({ handleSignInButtonClick }: Props) => {
       </div>
       <CSSTransition
         in={isSearchOpened}
-        timeout={{
-          enter: 300,
-          exit: 200,
-        }}
+        timeout={100}
         classNames="glowAnimation"
         unmountOnExit
         onExited={() => setIsSearchOpened(false)}
@@ -100,11 +97,14 @@ const Header: React.FC<Props> = ({ handleSignInButtonClick }: Props) => {
         <form className={style.form} onSubmit={handleSubmit}>
           <input
             className={style.input}
-            placeholder="Please enter a keyword to search"
+            placeholder="Search"
             type="text"
             value={value}
             onChange={handleChange}
           />
+          <button className={style.submitButton} type="submit">
+            <RiSearch2Line size="30px" fill="#fff" />
+          </button>
         </form>
       </CSSTransition>
     </header>

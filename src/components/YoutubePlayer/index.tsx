@@ -21,7 +21,8 @@ const YoutubePlayer: React.FC<Props> = ({
         title={title}
         width="100%"
         height="100%"
-        src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
+        allow="fullscreen"
+        src={`https://www.youtube.com/embed/${videoId}?autoplay=1&theme=light&color=white&rel=0&modestbranding=1&playsinline=1`}
       />
     </div>
     <div className={style.wrapper}>

@@ -59,6 +59,8 @@ const Search: React.FC = () => {
                   title={data.snippet.title}
                   description={description}
                   thumbnailPath={data.snippet.thumbnails.high.url}
+                  width={data.snippet.thumbnails.high.width}
+                  height={data.snippet.thumbnails.high.height}
                   channelTitle={data.snippet.channelTitle}
                 />
               </div>

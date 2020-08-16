@@ -26,19 +26,19 @@
 }
 
 .glowAnimation-enter-active {
-  animation: glow .3s ease-in;
+  animation: glow .1s ease-in;
 }
 
 .glowAnimation-enter-done{
   opacity: 1;
-  transition: opacity .3s;
+  transition: opacity .1s;
 }
 
 .glowAnimation-exit-active {
   opacity: 0;
   margin-top: 0;
   transition: opacity .08s,margin .08s;
-  animation: glow .2s ease-in reverse;
+  animation: glow .1s ease-in reverse;
 }
 
 @keyframes glow {
