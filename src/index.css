@@ -75,6 +75,7 @@ button {
   padding: 0;
   text-align: unset;
   align-items: unset;
+  appearance: none;
   max-height: 100%;
 }
 

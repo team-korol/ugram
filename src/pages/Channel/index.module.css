@@ -1,6 +1,6 @@
 .cardWrapper {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: stretch;
   flex-wrap: wrap;
   gap: 16px;

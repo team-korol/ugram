@@ -6,6 +6,7 @@
   flex-direction: column;
   box-sizing: border-box;
   height: 100%;
+  position: relative
 }
 
 .imageSkelton {
@@ -42,6 +43,7 @@
   flex-direction: column;
   box-sizing: border-box;
   height: 100%;
+  position: relative
 }
 
 .image {
