@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { getSearch } from '../apis';
 
-type useYouTubeSearchProps = {
+type useYoutubeSearchByChannelIdProps = {
   token: string | undefined;
-  query: string | undefined;
+  channelId: string | undefined;
 };
 
 type item = {
@@ -41,24 +41,24 @@ type item = {
   };
 };
 
-const useYouTubeSearch = ({
+const useYoutubeSearchByChannelId = ({
   token: access_token,
-  query: q,
-}: useYouTubeSearchProps) => {
+  channelId,
+}: useYoutubeSearchByChannelIdProps) => {
   const [items, setItems] = useState<item[]>();
   useEffect(() => {
     if (!access_token) {
       return;
     }
-    if (!q) {
+    if (!channelId) {
       return;
     }
     (async () => {
       try {
-        const { items } = await getSearch({
+        const { items }: any = await getSearch({
           access_token,
           part: 'snippet',
-          q,
+          channelId,
           maxResults: 50,
           type: 'video',
         });
@@ -70,9 +70,9 @@ const useYouTubeSearch = ({
         }
       }
     })();
-  }, [access_token, q]);
+  }, [access_token, channelId]);
 
   return items;
 };
 
-export { useYouTubeSearch };
+export { useYoutubeSearchByChannelId };

@@ -5,10 +5,10 @@ import UgramModal from '../../components/UgramModal';
 import YoutubeCard from '../../components/YoutubeCard';
 import YoutubePlayer from '../../components/YoutubePlayer';
 import style from './index.module.css';
-import { useYouTubeSearch } from '../../hooks/useYoutubeSearch';
+import { useYoutubeSearchByChannelId } from '../../hooks/useYoutubeSearchByChannelId';
 
-const Search: React.FC = () => {
-  const { userInfo, serchQuery } = useContext(MyContext);
+const Channel: React.FC = () => {
+  const { userInfo, serchChannelInfo } = useContext(MyContext);
   const [isShowModal, setIsShowModal] = useState(false);
   const [modalData, setModalData] = useState({
     title: '',
@@ -31,13 +31,14 @@ const Search: React.FC = () => {
     },
     [setModalData, setIsShowModal]
   );
-  const items = useYouTubeSearch({
+  const items = useYoutubeSearchByChannelId({
     token: userInfo?.credential?.accessToken,
-    query: serchQuery,
+    channelId: serchChannelInfo?.snippet.resourceId.channelId,
   });
+
   return (
     <>
-      <Helmet title="Search | Ugram" />
+      <Helmet title="Channel | Ugram" />
       <div className={style.cardWrapper}>
         {!!items?.length &&
           items.map((data, i: number) => {
@@ -93,4 +94,4 @@ const Search: React.FC = () => {
   );
 };
 
-export default Search;
+export default Channel;

@@ -1,11 +1,46 @@
 import firebase from 'firebase/app';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import './App.css';
 import Header from './components/Header';
 import { PAGE_STATUS } from './constants';
+import Channel from './pages/Channel';
 import Search from './pages/Search';
 import Top from './pages/Top';
+
+type SubscriptionsItem = {
+  kind: string;
+  etag: any;
+  id: string;
+  snippet: {
+    publishedAt: number;
+    channelTitle: string;
+    title: string;
+    description: string;
+    resourceId: {
+      kind: string;
+      channelId: string;
+    };
+    channelId: string;
+    thumbnails: {
+      default: {
+        url: string;
+        width: number;
+        height: number;
+      };
+      medium: {
+        url: string;
+        width: number;
+        height: number;
+      };
+      high: {
+        url: string;
+        width: number;
+        height: number;
+      };
+    };
+  };
+};
 
 interface MyContextInterface {
   userInfo?: any;
@@ -14,6 +49,10 @@ interface MyContextInterface {
   setPageStatus?: React.Dispatch<React.SetStateAction<PAGE_STATUS>>;
   serchQuery?: string;
   setSerchQuery?: React.Dispatch<React.SetStateAction<string>>;
+  serchChannelInfo?: SubscriptionsItem;
+  setSerchChannelInfo?: React.Dispatch<
+    React.SetStateAction<SubscriptionsItem | undefined>
+  >;
 }
 
 export const MyContext = React.createContext<MyContextInterface>({});
@@ -22,7 +61,7 @@ const App: React.FC = () => {
   const [userInfo, setUserInfo] = useState({});
   const [pageStatus, setPageStatus] = useState<PAGE_STATUS>(PAGE_STATUS.TOP);
   const [serchQuery, setSerchQuery] = useState('');
-
+  const [serchChannelInfo, setSerchChannelInfo] = useState<SubscriptionsItem>();
   const handleSignInButtonClick = useCallback(() => {
     const provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('https://www.googleapis.com/auth/youtube');
@@ -38,6 +77,13 @@ const App: React.FC = () => {
         console.error(error.code, error.message);
       });
   }, [setUserInfo]);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+    });
+  }, [pageStatus]);
+
   return (
     <MyContext.Provider
       value={{
@@ -47,6 +93,8 @@ const App: React.FC = () => {
         setPageStatus,
         serchQuery,
         setSerchQuery,
+        serchChannelInfo,
+        setSerchChannelInfo,
       }}
     >
       <Helmet
@@ -97,6 +145,7 @@ const App: React.FC = () => {
       <Header handleSignInButtonClick={handleSignInButtonClick} />
       <main className="main">
         {pageStatus === PAGE_STATUS.SEARCH && <Search />}
+        {pageStatus === PAGE_STATUS.CHANNEL && <Channel />}
         {pageStatus === PAGE_STATUS.TOP && <Top />}
       </main>
     </MyContext.Provider>

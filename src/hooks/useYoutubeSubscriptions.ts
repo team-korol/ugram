@@ -1,25 +1,24 @@
 import { useEffect, useState } from 'react';
-import { getSearch } from '../apis';
+import { getSubscriptions } from '../apis';
 
-type useYouTubeSearchProps = {
-  token: string | undefined;
-  query: string | undefined;
+type Args = {
+  token: string;
 };
 
-type item = {
+type SubscriptionsItem = {
   kind: string;
   etag: any;
-  id: {
-    kind: string;
-    videoId: string;
-    channelId: string;
-    playlistId: string;
-  };
+  id: string;
   snippet: {
     publishedAt: number;
-    channelId: string;
+    channelTitle: string;
     title: string;
     description: string;
+    resourceId: {
+      kind: string;
+      channelId: string;
+    };
+    channelId: string;
     thumbnails: {
       default: {
         url: string;
@@ -37,30 +36,23 @@ type item = {
         height: number;
       };
     };
-    channelTitle: string;
   };
 };
 
-const useYouTubeSearch = ({
-  token: access_token,
-  query: q,
-}: useYouTubeSearchProps) => {
-  const [items, setItems] = useState<item[]>();
+const useYoutubeSubscriptions = ({ token: access_token }: Args) => {
+  const [items, setItems] = useState<SubscriptionsItem[]>([]);
   useEffect(() => {
     if (!access_token) {
       return;
     }
-    if (!q) {
-      return;
-    }
     (async () => {
       try {
-        const { items } = await getSearch({
+        const { items } = await getSubscriptions({
           access_token,
           part: 'snippet',
-          q,
+          mine: true,
           maxResults: 50,
-          type: 'video',
+          order: 'unread',
         });
         setItems(items);
       } catch (error) {
@@ -70,9 +62,9 @@ const useYouTubeSearch = ({
         }
       }
     })();
-  }, [access_token, q]);
+  }, [access_token]);
 
   return items;
 };
 
-export { useYouTubeSearch };
+export { useYoutubeSubscriptions };

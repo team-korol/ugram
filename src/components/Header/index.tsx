@@ -1,6 +1,6 @@
 import 'firebase/auth';
 import React, { useContext, useCallback, useState } from 'react';
-import { RiSearch2Line, RiCloseLine } from 'react-icons/ri';
+import { RiSearch2Line, RiCloseLine, RiArrowLeftSLine } from 'react-icons/ri';
 import { MyContext } from '../../App';
 import googleSiginInImage from '../../assets/btn_google_signin.png';
 import logo from '../../assets/logo_full.svg';
@@ -16,7 +16,13 @@ type Props = {
 };
 
 const Header: React.FC<Props> = ({ handleSignInButtonClick }: Props) => {
-  const { userInfo, setPageStatus, setSerchQuery } = useContext(MyContext);
+  const {
+    userInfo,
+    pageStatus,
+    setPageStatus,
+    setSerchQuery,
+    serchChannelInfo,
+  } = useContext(MyContext);
 
   // Ugram logo関連
   const handleLogoClick = useCallback(() => {
@@ -51,40 +57,54 @@ const Header: React.FC<Props> = ({ handleSignInButtonClick }: Props) => {
   return (
     <header className={style.header}>
       <div className={style.head}>
-        <h1 className={style.link}>
-          <img
-            src={logo}
-            alt="ugram"
-            width="100px"
-            height="100%"
-            onClick={handleLogoClick}
-          />
-        </h1>
+        {pageStatus === PAGE_STATUS.CHANNEL && (
+          <>
+            <div className={style.backIcon}>
+              <RiArrowLeftSLine size="30px" onClick={handleLogoClick} />
+            </div>
+            <h2 className={style.channelTitle}>
+              {serchChannelInfo?.snippet.title}
+            </h2>
+          </>
+        )}
+        {pageStatus !== PAGE_STATUS.CHANNEL && (
+          <h1 className={style.link}>
+            <img
+              src={logo}
+              alt="ugram"
+              width="100px"
+              height="100%"
+              onClick={handleLogoClick}
+            />
+          </h1>
+        )}
         {!userInfo.user && (
           <div className={style.googleSigin} onClick={handleSignInButtonClick}>
             <img src={googleSiginInImage} alt="google sigin in button" />
           </div>
         )}
-        {userInfo.user && (
-          <img
-            className={style.userIcon}
-            src={userInfo?.user?.photoURL}
-            alt="user Icon"
-          />
-        )}
-        {iconStatus === ICON.SERCH && (
-          <RiSearch2Line
-            size="30px"
-            className={style.navIcon}
-            onClick={handleIconClick(ICON.CLOSE)}
-          />
-        )}
-        {iconStatus === ICON.CLOSE && (
-          <RiCloseLine
-            size="30px"
-            className={style.navIcon}
-            onClick={handleIconClick(ICON.SERCH)}
-          />
+        {!!userInfo.user && (
+          <>
+            <img
+              className={style.userIcon}
+              src={userInfo?.user?.photoURL}
+              alt="user Icon"
+            />
+            {iconStatus === ICON.SERCH && (
+              <RiSearch2Line
+                size="30px"
+                className={style.navIcon}
+                onClick={handleIconClick(ICON.CLOSE)}
+              />
+            )}
+            {iconStatus === ICON.CLOSE && (
+              <RiCloseLine
+                size="30px"
+                className={style.navIcon}
+                onClick={handleIconClick(ICON.SERCH)}
+              />
+            )}
+          </>
         )}
       </div>
       <CSSTransition

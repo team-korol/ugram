@@ -7,6 +7,7 @@ export const apiKeys = {
 export enum PAGE_STATUS {
   TOP = 'TOP',
   SEARCH = 'Search',
+  CHANNEL = 'Channel',
 }
 
 export enum ICON {
