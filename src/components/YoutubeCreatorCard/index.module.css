@@ -1,7 +1,6 @@
 .cardSkelton {
   display: flex;
   align-items: center;
-  gap: 16px;
   padding: 16px;
   width: 100%;
   border-radius: 4px;
@@ -11,6 +10,7 @@
 .imageSkelton {
   width: 60px;
   height: 60px;
+  margin-right: 16px;
   border-radius: 50%;
   border-top-left-radius: unset;
 }
@@ -22,7 +22,6 @@
 .card {
   display: flex;
   align-items: center;
-  gap: 16px;
   padding: 16px;
   width: 100%;
   border-radius: 4px;
@@ -32,6 +31,7 @@
 .image {
   width: 60px;
   height: 60px;
+  margin-right: 16px;
   border-radius: 50%;
   border-top-left-radius: unset;
 }

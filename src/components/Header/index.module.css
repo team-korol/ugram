@@ -49,11 +49,11 @@
 
 .form {
   display: flex;
-  gap: 8px;
   margin-top: 8px;
 }
 
 .input {
+  margin-right: 8px;
   flex-grow: 1;
   border-style: solid;
   border-width: 1px;
