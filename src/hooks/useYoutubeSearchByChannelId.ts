@@ -61,6 +61,7 @@ const useYoutubeSearchByChannelId = ({
           channelId,
           maxResults: 50,
           type: 'video',
+          order: 'date',
         });
         setItems(items);
       } catch (error) {

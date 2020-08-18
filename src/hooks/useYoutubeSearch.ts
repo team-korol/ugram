@@ -61,6 +61,7 @@ const useYouTubeSearch = ({
           q,
           maxResults: 50,
           type: 'video',
+          order: 'date',
         });
         setItems(items);
       } catch (error) {
