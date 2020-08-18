@@ -11,7 +11,7 @@ import { PAGE_STATUS, ICON } from '../../constants';
 
 type Props = {
   handleSignInButtonClick:
-    | ((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void)
+    | ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void)
     | undefined;
 };
 
@@ -59,9 +59,13 @@ const Header: React.FC<Props> = ({ handleSignInButtonClick }: Props) => {
       <div className={style.head}>
         {pageStatus === PAGE_STATUS.CHANNEL && (
           <>
-            <div className={style.backIcon}>
-              <RiArrowLeftSLine size="30px" onClick={handleLogoClick} />
-            </div>
+            <button
+              className={style.backIcon}
+              tabIndex={0}
+              onClick={handleLogoClick}
+            >
+              <RiArrowLeftSLine size="30px" />
+            </button>
             <h2 className={style.channelTitle}>
               {serchChannelInfo?.snippet.title}
             </h2>
@@ -69,19 +73,19 @@ const Header: React.FC<Props> = ({ handleSignInButtonClick }: Props) => {
         )}
         {pageStatus !== PAGE_STATUS.CHANNEL && (
           <h1 className={style.link}>
-            <img
-              src={logo}
-              alt="ugram"
-              width="100px"
-              height="100%"
-              onClick={handleLogoClick}
-            />
+            <button onClick={handleLogoClick} tabIndex={0}>
+              <img src={logo} alt="ugram" width="100px" height="31px" />
+            </button>
           </h1>
         )}
         {!userInfo.user && (
-          <div className={style.googleSigin} onClick={handleSignInButtonClick}>
+          <button
+            className={style.googleSigin}
+            onClick={handleSignInButtonClick}
+            tabIndex={0}
+          >
             <img src={googleSiginInImage} alt="google sigin in button" />
-          </div>
+          </button>
         )}
         {!!userInfo.user && (
           <>
@@ -91,18 +95,19 @@ const Header: React.FC<Props> = ({ handleSignInButtonClick }: Props) => {
               alt="user Icon"
             />
             {iconStatus === ICON.SERCH && (
-              <RiSearch2Line
-                size="30px"
-                className={style.navIcon}
-                onClick={handleIconClick(ICON.CLOSE)}
-              />
+              <button onClick={handleIconClick(ICON.CLOSE)} tabIndex={0}>
+                <RiSearch2Line size="30px" className={style.navIcon} />
+              </button>
             )}
             {iconStatus === ICON.CLOSE && (
-              <RiCloseLine
-                size="30px"
-                className={style.navIcon}
-                onClick={handleIconClick(ICON.SERCH)}
-              />
+              <button onClick={handleIconClick(ICON.SERCH)} tabIndex={0}>
+                <RiCloseLine
+                  size="30px"
+                  className={style.navIcon}
+                  onClick={handleIconClick(ICON.SERCH)}
+                  tabIndex={0}
+                />
+              </button>
             )}
           </>
         )}
@@ -121,8 +126,10 @@ const Header: React.FC<Props> = ({ handleSignInButtonClick }: Props) => {
             type="text"
             value={value}
             onChange={handleChange}
+            tabIndex={0}
+            aria-label="Search"
           />
-          <button className={style.submitButton} type="submit">
+          <button className={style.submitButton} type="submit" tabIndex={0}>
             <RiSearch2Line size="30px" fill="#fff" />
           </button>
         </form>

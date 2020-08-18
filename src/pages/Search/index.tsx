@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useContext, useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { MyContext } from '../../App';
 import UgramModal from '../../components/UgramModal';
@@ -9,6 +9,11 @@ import { useYouTubeSearch } from '../../hooks/useYoutubeSearch';
 
 const Search: React.FC = () => {
   const { userInfo, serchQuery } = useContext(MyContext);
+  const onKeyDown = () => setIsShowModal(false);
+  useEffect(() => {
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  });
   const [isShowModal, setIsShowModal] = useState(false);
   const [modalData, setModalData] = useState({
     title: '',
@@ -46,10 +51,11 @@ const Search: React.FC = () => {
               description = `${data.snippet.description.substr(0, 20)}...`;
             }
             return (
-              <div
+              <button
                 className={style.card}
                 key={i}
                 onClick={handleCardClick}
+                tabIndex={0}
                 data-title={data.snippet.title}
                 data-description={data.snippet.description}
                 data-video-id={data.id.videoId}
@@ -63,13 +69,13 @@ const Search: React.FC = () => {
                   height={data.snippet.thumbnails.high.height}
                   channelTitle={data.snippet.channelTitle}
                 />
-              </div>
+              </button>
             );
           })}
         {!items?.length &&
           !!Object.keys(userInfo).length &&
           [...new Array(18)].map((_, i) => (
-            <div className={style.card} key={i}>
+            <button className={style.card} key={i}>
               <YoutubeCard
                 title=""
                 description=""
@@ -77,7 +83,7 @@ const Search: React.FC = () => {
                 channelTitle=""
                 isSkelton={true}
               />
-            </div>
+            </button>
           ))}
         {!Object.keys(userInfo).length && <div>Please sign in</div>}
       </div>

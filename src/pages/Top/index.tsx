@@ -29,30 +29,31 @@ const Top: React.FC = () => {
         {!!items.length &&
           items.map((data, i: number) => {
             return (
-              <div
+              <button
                 className={style.card}
                 key={i}
                 onClick={handleCardClick(data)}
+                tabIndex={0}
               >
                 <YoutubeCreatorCard
                   title={data.snippet.title}
                   thumbnailPath={data.snippet.thumbnails.high.url}
                   channelTitle={data.snippet.channelTitle}
                 />
-              </div>
+              </button>
             );
           })}
         {!items.length &&
           !!Object.keys(userInfo).length &&
           [...new Array(18)].map((_, i) => (
-            <div className={style.card} key={i}>
+            <button className={style.card} key={i}>
               <YoutubeCreatorCard
                 title=""
                 thumbnailPath=""
                 channelTitle=""
                 isSkelton={true}
               />
-            </div>
+            </button>
           ))}
         {!Object.keys(userInfo).length && <div>Please sign in</div>}
       </div>
