@@ -25,38 +25,40 @@ const Top: React.FC = () => {
   return (
     <>
       <Helmet title="Top | Ugram" />
-      <div className={style.cardWrapper}>
-        {!!items.length &&
-          items.map((data, i: number) => {
-            return (
-              <button
-                className={style.card}
-                key={i}
-                onClick={handleCardClick(data)}
-                tabIndex={0}
-              >
+      <section className={style.section}>
+        <div className={style.cardWrapper}>
+          {!!items.length &&
+            items.map((data, i: number) => {
+              return (
+                <button
+                  className={style.card}
+                  key={i}
+                  onClick={handleCardClick(data)}
+                  tabIndex={0}
+                >
+                  <YoutubeCreatorCard
+                    title={data.snippet.title}
+                    thumbnailPath={data.snippet.thumbnails.high.url}
+                    channelTitle={data.snippet.channelTitle}
+                  />
+                </button>
+              );
+            })}
+          {!items.length &&
+            !!Object.keys(userInfo).length &&
+            [...new Array(18)].map((_, i) => (
+              <button className={style.card} key={i}>
                 <YoutubeCreatorCard
-                  title={data.snippet.title}
-                  thumbnailPath={data.snippet.thumbnails.high.url}
-                  channelTitle={data.snippet.channelTitle}
+                  title=""
+                  thumbnailPath=""
+                  channelTitle=""
+                  isSkelton={true}
                 />
               </button>
-            );
-          })}
-        {!items.length &&
-          !!Object.keys(userInfo).length &&
-          [...new Array(18)].map((_, i) => (
-            <button className={style.card} key={i}>
-              <YoutubeCreatorCard
-                title=""
-                thumbnailPath=""
-                channelTitle=""
-                isSkelton={true}
-              />
-            </button>
-          ))}
-        {!Object.keys(userInfo).length && <div>Please sign in</div>}
-      </div>
+            ))}
+          {!Object.keys(userInfo).length && <div>Please sign in</div>}
+        </div>
+      </section>
     </>
   );
 };

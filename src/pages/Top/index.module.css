@@ -1,3 +1,8 @@
+.section {
+  margin-inline-start: 16px;
+  margin-inline-end: 16px;
+}
+
 .cardWrapper {
   display: flex;
   justify-content: space-around;

@@ -7,6 +7,7 @@ import { PAGE_STATUS } from './constants';
 import Channel from './pages/Channel';
 import Search from './pages/Search';
 import Top from './pages/Top';
+import Welcome from './pages/Welcome';
 
 type SubscriptionsItem = {
   kind: string;
@@ -59,7 +60,9 @@ export const MyContext = React.createContext<MyContextInterface>({});
 
 const App: React.FC = () => {
   const [userInfo, setUserInfo] = useState({});
-  const [pageStatus, setPageStatus] = useState<PAGE_STATUS>(PAGE_STATUS.TOP);
+  const [pageStatus, setPageStatus] = useState<PAGE_STATUS>(
+    PAGE_STATUS.WELCOME
+  );
   const [serchQuery, setSerchQuery] = useState('');
   const [serchChannelInfo, setSerchChannelInfo] = useState<SubscriptionsItem>();
   const handleSignInButtonClick = useCallback(() => {
@@ -71,6 +74,7 @@ const App: React.FC = () => {
       .auth()
       .signInWithPopup(provider)
       .then((result) => {
+        setPageStatus && setPageStatus(PAGE_STATUS.TOP);
         setUserInfo && setUserInfo(result);
       })
       .catch((error) => {
@@ -147,6 +151,7 @@ const App: React.FC = () => {
         {pageStatus === PAGE_STATUS.SEARCH && <Search />}
         {pageStatus === PAGE_STATUS.CHANNEL && <Channel />}
         {pageStatus === PAGE_STATUS.TOP && <Top />}
+        {pageStatus === PAGE_STATUS.WELCOME && <Welcome />}
       </main>
     </MyContext.Provider>
   );

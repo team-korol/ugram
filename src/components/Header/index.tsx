@@ -95,18 +95,21 @@ const Header: React.FC<Props> = ({ handleSignInButtonClick }: Props) => {
               alt="user Icon"
             />
             {iconStatus === ICON.SERCH && (
-              <button onClick={handleIconClick(ICON.CLOSE)} tabIndex={0}>
-                <RiSearch2Line size="30px" className={style.navIcon} />
+              <button
+                className={style.navIcon}
+                onClick={handleIconClick(ICON.CLOSE)}
+                tabIndex={0}
+              >
+                <RiSearch2Line size="30px" />
               </button>
             )}
             {iconStatus === ICON.CLOSE && (
-              <button onClick={handleIconClick(ICON.SERCH)} tabIndex={0}>
-                <RiCloseLine
-                  size="30px"
-                  className={style.navIcon}
-                  onClick={handleIconClick(ICON.SERCH)}
-                  tabIndex={0}
-                />
+              <button
+                className={style.navIcon}
+                onClick={handleIconClick(ICON.SERCH)}
+                tabIndex={0}
+              >
+                <RiCloseLine size="30px" />
               </button>
             )}
           </>

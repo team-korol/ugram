@@ -1,0 +1,23 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 75vh;
+}
+.spacer {
+  flex-grow: 1;
+}
+
+.message {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: 1.2;
+  margin-inline-start: auto;
+  margin-inline-end: auto;
+  max-width: 288px;
+  background-image: url(../../assets/logo.svg);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-color: rgba(255,255,255,0.8);
+  background-blend-mode: lighten;
+  background-size: cover;
+}
