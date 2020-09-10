@@ -1,13 +1,14 @@
 import firebase from 'firebase/app';
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect, Suspense } from 'react';
 import { Helmet } from 'react-helmet';
 import './App.css';
 import Header from './components/Header';
 import { PAGE_STATUS } from './constants';
-import Channel from './pages/Channel';
-import Search from './pages/Search';
-import Top from './pages/Top';
-import Welcome from './pages/Welcome';
+
+const Channel = React.lazy(() => import('./pages/Channel'));
+const Search = React.lazy(() => import('./pages/Search'));
+const Top = React.lazy(() => import('./pages/Top'));
+const Welcome = React.lazy(() => import('./pages/Welcome'));
 
 type SubscriptionsItem = {
   kind: string;
@@ -146,10 +147,12 @@ const App: React.FC = () => {
       />
       <Header handleSignInButtonClick={handleSignInButtonClick} />
       <main className="main">
-        {pageStatus === PAGE_STATUS.SEARCH && <Search />}
-        {pageStatus === PAGE_STATUS.CHANNEL && <Channel />}
-        {pageStatus === PAGE_STATUS.TOP && <Top />}
-        {pageStatus === PAGE_STATUS.WELCOME && <Welcome />}
+        <Suspense fallback="">
+          {pageStatus === PAGE_STATUS.SEARCH && <Search />}
+          {pageStatus === PAGE_STATUS.CHANNEL && <Channel />}
+          {pageStatus === PAGE_STATUS.TOP && <Top />}
+          {pageStatus === PAGE_STATUS.WELCOME && <Welcome />}
+        </Suspense>
       </main>
     </MyContext.Provider>
   );
