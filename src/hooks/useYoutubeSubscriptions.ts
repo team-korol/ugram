@@ -52,6 +52,7 @@ const useYoutubeSubscriptions = ({ token: access_token }: Args) => {
           part: 'snippet',
           mine: true,
           maxResults: 50,
+          order: 'alphabetical',
         });
         setItems(items);
       } catch (error) {

@@ -68,8 +68,6 @@ const App: React.FC = () => {
   const handleSignInButtonClick = useCallback(() => {
     const provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('https://www.googleapis.com/auth/youtube');
-    provider.addScope('https://www.googleapis.com/auth/youtube.force-ssl');
-    provider.addScope('https://www.googleapis.com/auth/youtube.readonly');
     firebase
       .auth()
       .signInWithPopup(provider)

@@ -6,6 +6,6 @@
   bottom: 0;
   left: 0;
   background: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.9));
-  padding: 64px 32px 0;
+  padding: 64px 8px 0;
   z-index: 50;
 }

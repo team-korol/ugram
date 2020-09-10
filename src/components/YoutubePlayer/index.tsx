@@ -26,9 +26,9 @@ const YoutubePlayer: React.FC<Props> = ({
       />
     </div>
     <div className={style.wrapper}>
-      <h3 className={style.title}>{title}</h3>
-      <p className={style.channel}>channel: {channelTitle}</p>
-      <p className={style.description}>description: {description}</p>
+      <h4 className={style.title}>{title}</h4>
+      <p className={style.channel}>{channelTitle}</p>
+      <p className={style.description}>{description}</p>
     </div>
   </div>
 );

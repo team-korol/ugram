@@ -66,9 +66,9 @@ const Header: React.FC<Props> = ({ handleSignInButtonClick }: Props) => {
             >
               <RiArrowLeftSLine size="30px" />
             </button>
-            <h2 className={style.channelTitle}>
+            <h3 className={style.channelTitle}>
               {serchChannelInfo?.snippet.title}
-            </h2>
+            </h3>
           </>
         )}
         {pageStatus !== PAGE_STATUS.CHANNEL && (
