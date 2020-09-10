@@ -48,6 +48,7 @@ const YoutubeCard: React.FC<Props> = ({
             width={width}
             height={height}
             alt={title}
+            loading="lazy"
           />
           <div className={style.wrapper}>
             <h3 className={style.title}>{title}</h3>

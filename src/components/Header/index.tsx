@@ -74,7 +74,13 @@ const Header: React.FC<Props> = ({ handleSignInButtonClick }: Props) => {
         {pageStatus !== PAGE_STATUS.CHANNEL && (
           <h1 className={style.link}>
             <button onClick={handleLogoClick} tabIndex={0}>
-              <img src={logo} alt="ugram" width="100px" height="31px" />
+              <img
+                src={logo}
+                alt="ugram"
+                width="100px"
+                height="31px"
+                loading="lazy"
+              />
             </button>
           </h1>
         )}
