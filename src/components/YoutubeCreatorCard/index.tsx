@@ -24,9 +24,9 @@ const YoutubeCreatorCard: React.FC<Props> = ({
       {isSkelton && (
         <div className={style.cardSkelton}>
           <div className={classNames('pulseAnimation', [style.imageSkelton])} />
-          <h3 className={style.titleSkelton}>
+          <h4 className={style.titleSkelton}>
             <div className="pulseAnimation" />
-          </h3>
+          </h4>
         </div>
       )}
       {!isSkelton && (
@@ -39,7 +39,7 @@ const YoutubeCreatorCard: React.FC<Props> = ({
             alt={title}
             loading="lazy"
           />
-          <h3 className={style.title}>{title}</h3>
+          <h4 className={style.title}>{title}</h4>
         </div>
       )}
     </>

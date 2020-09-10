@@ -5,7 +5,6 @@ import '../../animation/index.css';
 
 type Props = {
   title: string;
-  description: string;
   thumbnailPath: string;
   channelTitle: string;
   width?: number | string;
@@ -15,7 +14,6 @@ type Props = {
 
 const YoutubeCard: React.FC<Props> = ({
   title,
-  description,
   thumbnailPath,
   channelTitle,
   width = 'auto',
@@ -32,10 +30,7 @@ const YoutubeCard: React.FC<Props> = ({
               <div className="pulseAnimation" />
             </h3>
             <p className={style.channelSkelton}>
-              <div className="pulseAnimation" />
-            </p>
-            <p className={style.descriptionSkelton}>
-              <div className="pulseAnimation" />
+              <span className="pulseAnimation" />
             </p>
           </div>
         </div>
@@ -51,9 +46,8 @@ const YoutubeCard: React.FC<Props> = ({
             loading="lazy"
           />
           <div className={style.wrapper}>
-            <h3 className={style.title}>{title}</h3>
-            <p className={style.channel}>channel: {channelTitle}</p>
-            <p className={style.description}>description: {description}</p>
+            <h4 className={style.title}>{title}</h4>
+            <p>{channelTitle}</p>
           </div>
         </div>
       )}

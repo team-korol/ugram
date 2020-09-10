@@ -24,15 +24,11 @@
 
 .titleSkelton {
   width: 80%;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 
 .channelSkelton {
   width: 30%;
-  margin-bottom: 8px;
-}
-
-.descriptionSkelton {
 }
 
 .card {
@@ -58,14 +54,6 @@
 }
 
 .title {
-  margin-bottom: 16px;
-}
-
-.channel {
   margin-bottom: 8px;
 }
 
-.description {
-  white-space: pre-wrap;
-  word-break: break-word;
-}
