@@ -27,6 +27,29 @@
 }
 
 .wrapper {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.left {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 30px;
+  display: flex;
+  align-items: stretch;
+}
+
+.right {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 30px;
+  display: flex;
+  align-items: stretch;
+}
+
+.main {
+  flex-grow: 1;
   padding: 16px;
 }
 

@@ -13,29 +13,27 @@ const Search: React.FC = () => {
   useEffect(() => {
     document.addEventListener('keydown', onKeyDown);
     return () => document.removeEventListener('keydown', onKeyDown);
-  });
+  }, []);
   const [isShowModal, setIsShowModal] = useState(false);
-  const [modalData, setModalData] = useState({
-    title: '',
-    description: '',
-    channelTitle: '',
-    videoId: '',
-  });
+  const [selectIndex, setSelectIndex] = useState(0);
   const HandleModalClick = useCallback(() => {
     setIsShowModal(false);
   }, [setIsShowModal]);
+
   const handleCardClick = useCallback(
-    (e) => {
-      setModalData({
-        title: e.currentTarget.dataset.title,
-        description: e.currentTarget.dataset.description,
-        channelTitle: e.currentTarget.dataset.channelTitle,
-        videoId: e.currentTarget.dataset.videoId,
-      });
+    (index) => () => {
+      setSelectIndex(index);
       setIsShowModal(true);
     },
-    [setModalData, setIsShowModal]
+    [setSelectIndex, setIsShowModal]
   );
+  const handleNextPreviousButtonTap = useCallback(
+    (index) => () => {
+      setSelectIndex(index);
+    },
+    [setSelectIndex]
+  );
+
   const items = useYouTubeSearch({
     token: userInfo?.credential?.accessToken,
     query: serchQuery,
@@ -50,12 +48,8 @@ const Search: React.FC = () => {
               <button
                 className={style.card}
                 key={i}
-                onClick={handleCardClick}
+                onClick={handleCardClick(i)}
                 tabIndex={0}
-                data-title={data.snippet.title}
-                data-description={data.snippet.description}
-                data-video-id={data.id.videoId}
-                data-channel-title={data.snippet.channelTitle}
               >
                 <YoutubeCard
                   title={data.snippet.title}
@@ -84,12 +78,24 @@ const Search: React.FC = () => {
           isShow={isShowModal}
           onCloseButtonHandler={HandleModalClick}
         >
-          <YoutubePlayer
-            title={modalData.title}
-            description={modalData.description}
-            videoId={modalData.videoId}
-            channelTitle={modalData.channelTitle}
-          />
+          {!!items?.length && (
+            <YoutubePlayer
+              title={items[selectIndex].snippet.title}
+              description={items[selectIndex].snippet.description}
+              videoId={items[selectIndex].id.videoId}
+              channelTitle={items[selectIndex].snippet.channelTitle}
+              handlePreviousButtonTap={
+                selectIndex !== 0
+                  ? handleNextPreviousButtonTap(selectIndex - 1)
+                  : undefined
+              }
+              handleNextButtonTap={
+                selectIndex <= items.length
+                  ? handleNextPreviousButtonTap(selectIndex + 1)
+                  : undefined
+              }
+            />
+          )}
         </UgramModal>
       </section>
     </>
