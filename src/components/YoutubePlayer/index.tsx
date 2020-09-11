@@ -35,25 +35,29 @@ const YoutubePlayer: React.FC<Props> = ({
         />
       </div>
       <div className={style.wrapper}>
-        <div className={style.left}>
-          {!!handlePreviousButtonTap && (
-            <button onClick={handlePreviousButtonTap}>
-              <RiArrowLeftSLine size="30px" />
-            </button>
-          )}
-        </div>
+        {(!!handlePreviousButtonTap || !!handleNextButtonTap) && (
+          <div className={style.left}>
+            {!!handlePreviousButtonTap && (
+              <button onClick={handlePreviousButtonTap}>
+                <RiArrowLeftSLine size="30px" />
+              </button>
+            )}
+          </div>
+        )}
         <div className={style.main}>
           <h4 className={style.title}>{title}</h4>
           <p className={style.channel}>{channelTitle}</p>
           <p className={style.description}>{description}</p>
         </div>
-        <div className={style.right}>
-          {!!handleNextButtonTap && (
-            <button onClick={handleNextButtonTap}>
-              <RiArrowRightSLine size="30px" />
-            </button>
-          )}
-        </div>
+        {(!!handlePreviousButtonTap || !!handleNextButtonTap) && (
+          <div className={style.right}>
+            {!!handleNextButtonTap && (
+              <button onClick={handleNextButtonTap}>
+                <RiArrowRightSLine size="30px" />
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

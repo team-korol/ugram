@@ -8,8 +8,8 @@ import {
 
 export const getVideoList = async (params = {}, options = {}) => {
   try {
-    const { list }: any = await get(API_GET_VIDEO_LIST, params, options);
-    return { list };
+    const { items }: any = await get(API_GET_VIDEO_LIST, params, options);
+    return { items };
   } catch (error) {
     throw error.response;
   }

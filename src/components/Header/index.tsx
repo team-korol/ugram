@@ -7,7 +7,7 @@ import logo from '../../assets/logo_full.svg';
 import style from './index.module.css';
 import { CSSTransition } from 'react-transition-group';
 import '../../animation/index.css';
-import { PAGE_STATUS, ICON } from '../../constants';
+import { PAGE_STATUS, ICON, SHARE_URL_PATTERN } from '../../constants';
 
 type Props = {
   handleSignInButtonClick:
@@ -48,8 +48,14 @@ const Header: React.FC<Props> = ({ handleSignInButtonClick }: Props) => {
   const handleSubmit = useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      setSerchQuery && setSerchQuery(value);
-      setPageStatus && setPageStatus(PAGE_STATUS.SEARCH);
+      if (SHARE_URL_PATTERN.test(value)) {
+        const videoId = value.split(SHARE_URL_PATTERN)[1].split(/\?/)[0];
+        setSerchQuery && setSerchQuery(videoId);
+        setPageStatus && setPageStatus(PAGE_STATUS.SINGLE);
+      } else {
+        setSerchQuery && setSerchQuery(value);
+        setPageStatus && setPageStatus(PAGE_STATUS.SEARCH);
+      }
     },
     [value, setSerchQuery, setPageStatus]
   );
@@ -78,7 +84,7 @@ const Header: React.FC<Props> = ({ handleSignInButtonClick }: Props) => {
                 src={logo}
                 alt="ugram"
                 width="100px"
-                height="31px"
+                height="30px"
                 loading="lazy"
               />
             </button>

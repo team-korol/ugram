@@ -6,13 +6,50 @@ type useYouTubeVideosProps = {
   id: string | undefined;
 };
 
-type StateType = any;
+type Item = {
+  kind: string;
+  etag: any;
+  id: string;
+  snippet: {
+    categoryId: string;
+    channelId: string;
+    channelTitle: string;
+    defaultAudioLanguage: string;
+    defaultLanguage: string;
+    description: string;
+    liveBroadcastContent: string;
+    localized: {
+      description: string;
+      title: string;
+    };
+    publishedAt: number;
+    tags: string[];
+    thumbnails: {
+      default: {
+        url: string;
+        width: number;
+        height: number;
+      };
+      medium: {
+        url: string;
+        width: number;
+        height: number;
+      };
+      high: {
+        url: string;
+        width: number;
+        height: number;
+      };
+    };
+    title: string;
+  };
+};
 
 const useYouTubeVideos = ({
   token: access_token,
   id,
 }: useYouTubeVideosProps) => {
-  const [item, setItem] = useState<StateType>();
+  const [item, setItem] = useState<Item>();
   useEffect(() => {
     if (!access_token) {
       return;
@@ -20,15 +57,15 @@ const useYouTubeVideos = ({
     if (!id) {
       return;
     }
-    (() => {
+    (async () => {
       try {
-        const res: any = getVideoList({
+        const { items }: any = await getVideoList({
           access_token,
-          part: ['id'],
+          part: 'snippet',
           id,
           maxResults: 1,
         });
-        setItem(res);
+        setItem(items[0]);
       } catch (error) {
         console.log(error);
         if (error.status === 403) {
@@ -38,7 +75,7 @@ const useYouTubeVideos = ({
     })();
   }, [access_token, id]);
 
-  return { item };
+  return item;
 };
 
 export { useYouTubeVideos };

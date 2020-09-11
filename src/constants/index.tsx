@@ -9,9 +9,12 @@ export enum PAGE_STATUS {
   SEARCH = 'Search',
   CHANNEL = 'Channel',
   WELCOME = 'Welcome',
+  SINGLE = 'Single',
 }
 
 export enum ICON {
   SERCH = 'SERCH',
   CLOSE = 'CLOSE',
 }
+
+export const SHARE_URL_PATTERN = /https:\/\/youtu.be\//;

@@ -4,11 +4,11 @@ import { Helmet } from 'react-helmet';
 import './App.css';
 import Header from './components/Header';
 import { PAGE_STATUS } from './constants';
-
 const Channel = React.lazy(() => import('./pages/Channel'));
 const Search = React.lazy(() => import('./pages/Search'));
 const Top = React.lazy(() => import('./pages/Top'));
 const Welcome = React.lazy(() => import('./pages/Welcome'));
+const SinglePlayer = React.lazy(() => import('./pages/SinglePlayer'));
 
 type SubscriptionsItem = {
   kind: string;
@@ -148,10 +148,11 @@ const App: React.FC = () => {
       <Header handleSignInButtonClick={handleSignInButtonClick} />
       <main className="main">
         <Suspense fallback="">
+          {pageStatus === PAGE_STATUS.WELCOME && <Welcome />}
+          {pageStatus === PAGE_STATUS.TOP && <Top />}
           {pageStatus === PAGE_STATUS.SEARCH && <Search />}
           {pageStatus === PAGE_STATUS.CHANNEL && <Channel />}
-          {pageStatus === PAGE_STATUS.TOP && <Top />}
-          {pageStatus === PAGE_STATUS.WELCOME && <Welcome />}
+          {pageStatus === PAGE_STATUS.SINGLE && <SinglePlayer />}
         </Suspense>
       </main>
     </MyContext.Provider>

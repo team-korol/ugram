@@ -26,9 +26,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
-    "format": "prettier --write \"**/*.{js,jsx,,ts,tsx,json,md}\"",
-    "lint": "eslint '**/*.{js,.jsx,ts,tsx}'",
-    "lint:fix": "eslint --fix '**/*.{js,.jsx,ts,tsx}'"
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "lint": "eslint '**/*.{js,jsx,ts,tsx}'",
+    "lint:fix": "eslint --fix '**/*.{js,jsx,ts,tsx}'"
   },
   "eslintConfig": {
     "extends": "react-app"
