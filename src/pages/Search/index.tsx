@@ -90,7 +90,7 @@ const Search: React.FC = () => {
                   : undefined
               }
               handleNextButtonTap={
-                selectIndex <= items.length
+                selectIndex < items.length
                   ? handleNextPreviousButtonTap(selectIndex + 1)
                   : undefined
               }
