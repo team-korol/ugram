@@ -61,7 +61,6 @@ const Search: React.FC = () => {
               </button>
             ))}
           {!items?.length &&
-            !!Object.keys(userInfo).length &&
             [...new Array(18)].map((_, i) => (
               <button className={style.card} key={i}>
                 <YoutubeCard
@@ -72,7 +71,6 @@ const Search: React.FC = () => {
                 />
               </button>
             ))}
-          {!Object.keys(userInfo).length && <div>Please sign in</div>}
         </div>
         <UgramModal
           isShow={isShowModal}

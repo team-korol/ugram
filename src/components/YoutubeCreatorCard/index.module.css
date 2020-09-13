@@ -39,3 +39,9 @@
   border-radius: 50%;
   border-top-left-radius: unset;
 }
+
+.title {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}

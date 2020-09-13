@@ -1,12 +1,12 @@
-import firebase from 'firebase/app';
-import React, { useCallback, useState, useEffect, Suspense } from 'react';
+import React, { Suspense, useState } from 'react';
 import { Helmet } from 'react-helmet';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header';
-import { PAGE_STATUS } from './constants';
+const Page = React.lazy(() => import('./pages/Page'));
 const Channel = React.lazy(() => import('./pages/Channel'));
 const Search = React.lazy(() => import('./pages/Search'));
-const Top = React.lazy(() => import('./pages/Top'));
+const Home = React.lazy(() => import('./pages/Home'));
 const Welcome = React.lazy(() => import('./pages/Welcome'));
 const SinglePlayer = React.lazy(() => import('./pages/SinglePlayer'));
 
@@ -47,8 +47,6 @@ type SubscriptionsItem = {
 interface MyContextInterface {
   userInfo?: any;
   setUserInfo?: React.Dispatch<React.SetStateAction<{}>>;
-  pageStatus?: PAGE_STATUS;
-  setPageStatus?: React.Dispatch<React.SetStateAction<PAGE_STATUS>>;
   serchQuery?: string;
   setSerchQuery?: React.Dispatch<React.SetStateAction<string>>;
   serchChannelInfo?: SubscriptionsItem;
@@ -60,40 +58,15 @@ interface MyContextInterface {
 export const MyContext = React.createContext<MyContextInterface>({});
 
 const App: React.FC = () => {
-  const [userInfo, setUserInfo] = useState({});
-  const [pageStatus, setPageStatus] = useState<PAGE_STATUS>(
-    PAGE_STATUS.WELCOME
-  );
+  const [userInfo, setUserInfo] = useState<{ [k: string]: any } | null>(null);
   const [serchQuery, setSerchQuery] = useState('');
   const [serchChannelInfo, setSerchChannelInfo] = useState<SubscriptionsItem>();
-  const handleSignInButtonClick = useCallback(() => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    provider.addScope('https://www.googleapis.com/auth/youtube');
-    firebase
-      .auth()
-      .signInWithPopup(provider)
-      .then((result) => {
-        setPageStatus && setPageStatus(PAGE_STATUS.TOP);
-        setUserInfo && setUserInfo(result);
-      })
-      .catch((error) => {
-        console.error(error.code, error.message);
-      });
-  }, [setUserInfo]);
-
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-    });
-  }, [pageStatus]);
 
   return (
     <MyContext.Provider
       value={{
         userInfo,
         setUserInfo,
-        pageStatus,
-        setPageStatus,
         serchQuery,
         setSerchQuery,
         serchChannelInfo,
@@ -145,16 +118,22 @@ const App: React.FC = () => {
           },
         ]}
       />
-      <Header handleSignInButtonClick={handleSignInButtonClick} />
-      <main className="main">
+      <BrowserRouter>
         <Suspense fallback="">
-          {pageStatus === PAGE_STATUS.WELCOME && <Welcome />}
-          {pageStatus === PAGE_STATUS.TOP && <Top />}
-          {pageStatus === PAGE_STATUS.SEARCH && <Search />}
-          {pageStatus === PAGE_STATUS.CHANNEL && <Channel />}
-          {pageStatus === PAGE_STATUS.SINGLE && <SinglePlayer />}
+          <Page>
+            <Header />
+            <main className="main">
+              <Switch>
+                <Route exact path="/" component={Welcome} />
+                <Route path="/home" component={Home} />
+                <Route path="/search" component={Search} />
+                <Route path="/channel" component={Channel} />
+                <Route path="/single" component={SinglePlayer} />
+              </Switch>
+            </main>
+          </Page>
         </Suspense>
-      </main>
+      </BrowserRouter>
     </MyContext.Provider>
   );
 };

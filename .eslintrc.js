@@ -18,6 +18,7 @@ module.exports = {
   rules: {
     semi: 'error',
     'no-extra-boolean-cast': 'off',
+    'react/prop-types': 'off',
   },
   plugins: ['react'],
 };

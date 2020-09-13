@@ -55,14 +55,17 @@
 
 .title {
   margin-bottom: 16px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .channel {
   margin-bottom: 8px;
-
 }
 
 .description {
   white-space: pre-wrap;
   word-break: break-word;
+  overflow-wrap: break-word;
 }

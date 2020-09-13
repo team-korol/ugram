@@ -1,15 +1,15 @@
 import React, { useCallback, useContext } from 'react';
 import { Helmet } from 'react-helmet';
+import { useHistory } from 'react-router-dom';
 import { MyContext } from '../../App';
 import YoutubeCreatorCard from '../../components/YoutubeCreatorCard';
+import { PAGE_URL } from '../../constants';
 import { useYoutubeSubscriptions } from '../../hooks/useYoutubeSubscriptions';
 import style from './index.module.css';
-import { PAGE_STATUS } from '../../constants';
 
-const Top: React.FC = () => {
-  const { userInfo, setPageStatus, setSerchChannelInfo } = useContext(
-    MyContext
-  );
+const Home: React.FC = () => {
+  const history = useHistory();
+  const { userInfo, setSerchChannelInfo } = useContext(MyContext);
   const items = useYoutubeSubscriptions({
     token: userInfo?.credential?.accessToken,
   });
@@ -17,9 +17,9 @@ const Top: React.FC = () => {
   const handleCardClick = useCallback(
     (data) => () => {
       setSerchChannelInfo && setSerchChannelInfo(data);
-      setPageStatus && setPageStatus(PAGE_STATUS.CHANNEL);
+      history.push(PAGE_URL.CHANNEL);
     },
-    [setSerchChannelInfo, setPageStatus]
+    [setSerchChannelInfo, history]
   );
 
   return (
@@ -45,7 +45,6 @@ const Top: React.FC = () => {
               );
             })}
           {!items.length &&
-            !!Object.keys(userInfo).length &&
             [...new Array(18)].map((_, i) => (
               <button className={style.card} key={i}>
                 <YoutubeCreatorCard
@@ -56,11 +55,10 @@ const Top: React.FC = () => {
                 />
               </button>
             ))}
-          {!Object.keys(userInfo).length && <div>Please sign in</div>}
         </div>
       </section>
     </>
   );
 };
 
-export default Top;
+export default Home;

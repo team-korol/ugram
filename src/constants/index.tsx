@@ -4,12 +4,12 @@ export const apiKeys = {
   },
 };
 
-export enum PAGE_STATUS {
-  TOP = 'TOP',
-  SEARCH = 'Search',
-  CHANNEL = 'Channel',
-  WELCOME = 'Welcome',
-  SINGLE = 'Single',
+export enum PAGE_URL {
+  TOP = '/',
+  HOME = '/home',
+  SEARCH = '/search',
+  CHANNEL = '/channel',
+  SINGLE = '/single',
 }
 
 export enum ICON {

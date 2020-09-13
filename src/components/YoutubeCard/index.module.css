@@ -55,5 +55,8 @@
 
 .title {
   margin-bottom: 8px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
