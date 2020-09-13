@@ -9,6 +9,9 @@ const Search = React.lazy(() => import('./pages/Search'));
 const Home = React.lazy(() => import('./pages/Home'));
 const Welcome = React.lazy(() => import('./pages/Welcome'));
 const SinglePlayer = React.lazy(() => import('./pages/SinglePlayer'));
+const PlayListHome = React.lazy(() => import('./pages/PlayListHome'));
+const PlayListInfo = React.lazy(() => import('./pages/PlayListInfo'));
+const PlayList = React.lazy(() => import('./pages/PlayList'));
 
 type SubscriptionsItem = {
   kind: string;
@@ -44,6 +47,50 @@ type SubscriptionsItem = {
   };
 };
 
+type PlayListItem = {
+  kind: string;
+  etag: string;
+  id: string;
+  snippet: {
+    publishedAt: string;
+    channelId: string;
+    title: string;
+    description: string;
+    thumbnails: {
+      default: {
+        url: string;
+        width: number;
+        height: number;
+      };
+      medium: {
+        url: string;
+        width: number;
+        height: number;
+      };
+      high: {
+        url: string;
+        width: number;
+        height: number;
+      };
+      standard: {
+        url: string;
+        width: number;
+        height: number;
+      };
+      maxres: {
+        url: string;
+        width: number;
+        height: number;
+      };
+    };
+    channelTitle: string;
+    localized: {
+      title: string;
+      description: string;
+    };
+  };
+};
+
 interface MyContextInterface {
   userInfo?: any;
   setUserInfo?: React.Dispatch<React.SetStateAction<{}>>;
@@ -53,6 +100,10 @@ interface MyContextInterface {
   setSerchChannelInfo?: React.Dispatch<
     React.SetStateAction<SubscriptionsItem | undefined>
   >;
+  playListInfo?: PlayListItem;
+  setPlayListInfo?: React.Dispatch<
+    React.SetStateAction<PlayListItem | undefined>
+  >;
 }
 
 export const MyContext = React.createContext<MyContextInterface>({});
@@ -61,6 +112,7 @@ const App: React.FC = () => {
   const [userInfo, setUserInfo] = useState<{ [k: string]: any } | null>(null);
   const [serchQuery, setSerchQuery] = useState('');
   const [serchChannelInfo, setSerchChannelInfo] = useState<SubscriptionsItem>();
+  const [playListInfo, setPlayListInfo] = useState<PlayListItem>();
 
   return (
     <MyContext.Provider
@@ -71,6 +123,8 @@ const App: React.FC = () => {
         setSerchQuery,
         serchChannelInfo,
         setSerchChannelInfo,
+        playListInfo,
+        setPlayListInfo,
       }}
     >
       <Helmet
@@ -128,6 +182,9 @@ const App: React.FC = () => {
                 <Route path="/home" component={Home} />
                 <Route path="/search" component={Search} />
                 <Route path="/channel" component={Channel} />
+                <Route path="/playlist/home" component={PlayListHome} />
+                <Route path="/playlist/info" component={PlayListInfo} />
+                <Route path="/playlist/item" component={PlayList} />
                 <Route path="/single" component={SinglePlayer} />
               </Switch>
             </main>

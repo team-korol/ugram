@@ -4,6 +4,8 @@ import {
   API_GET_SEARCH,
   API_GET_ACTIVITIES,
   API_GET_SUBSCRIPTIONS,
+  API_GET_PLAYLISTS,
+  API_GET_PLAYLIST_ITEMS,
 } from '../routes';
 
 export const getVideoList = async (params = {}, options = {}) => {
@@ -36,6 +38,24 @@ export const getActivities = async (params = {}, options = {}) => {
 export const getSubscriptions = async (params = {}, options = {}) => {
   try {
     const { items }: any = await get(API_GET_SUBSCRIPTIONS, params, options);
+    return { items };
+  } catch (error) {
+    throw error.response;
+  }
+};
+
+export const getPlayLists = async (params = {}, options = {}) => {
+  try {
+    const { items }: any = await get(API_GET_PLAYLISTS, params, options);
+    return { items };
+  } catch (error) {
+    throw error.response;
+  }
+};
+
+export const getPlayListItems = async (params = {}, options = {}) => {
+  try {
+    const { items }: any = await get(API_GET_PLAYLIST_ITEMS, params, options);
     return { items };
   } catch (error) {
     throw error.response;

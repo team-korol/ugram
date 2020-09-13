@@ -10,6 +10,9 @@ export enum PAGE_URL {
   SEARCH = '/search',
   CHANNEL = '/channel',
   SINGLE = '/single',
+  PLAYLIST_HOME = '/playlist/home',
+  PLAYLIST_INFO = '/playlist/info',
+  PLAYLIST = '/playlist/item',
 }
 
 export enum ICON {

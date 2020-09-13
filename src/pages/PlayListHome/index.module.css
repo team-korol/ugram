@@ -1,0 +1,18 @@
+.section {
+  margin-inline-start: 16px;
+  margin-inline-end: 16px;
+}
+
+.cardWrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.card {
+  max-width: 320px;
+  width: 100%;
+  margin-bottom: 16px;
+}
