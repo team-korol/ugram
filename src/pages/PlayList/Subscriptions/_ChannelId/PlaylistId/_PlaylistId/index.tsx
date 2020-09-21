@@ -1,14 +1,20 @@
 import React, { useCallback, useContext, useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import { MyContext } from '../../App';
-import UgramModal from '../../components/UgramModal';
-import YoutubeCard from '../../components/YoutubeCard';
-import YoutubePlayer from '../../components/YoutubePlayer';
+import { MyContext } from '../../../../../../App';
+import UgramModal from '../../../../../../components/UgramModal';
+import YoutubeCard from '../../../../../../components/YoutubeCard';
+import YoutubePlayer from '../../../../../../components/YoutubePlayer';
 import style from './index.module.css';
-import { useYouTubePlayListItems } from '../../hooks/useYouTubePlayListItems';
+import { useYouTubePlayListItems } from '../../../../../../hooks/useYouTubePlayListItems';
+import { RouteComponentProps } from 'react-router-dom';
 
-const PlayList: React.FC = () => {
-  const { userInfo, playListInfo } = useContext(MyContext);
+type Props = {} & RouteComponentProps<{
+  channelId: string;
+  playListId: string;
+}>;
+
+const PlayListId: React.FC<Props> = ({ match }) => {
+  const { userInfo, setHeaderText } = useContext(MyContext);
   const onKeyDown = () => setIsShowModal(false);
   useEffect(() => {
     document.addEventListener('keydown', onKeyDown);
@@ -35,12 +41,16 @@ const PlayList: React.FC = () => {
 
   const items = useYouTubePlayListItems({
     token: userInfo?.credential?.accessToken,
-    playlistId: playListInfo?.id,
+    playlistId: match.params.playListId,
   });
+
+  if (!!items?.length) {
+    setHeaderText?.(items?.[0].snippet.channelTitle);
+  }
 
   return (
     <>
-      <Helmet title="Channel | Ugram" />
+      <Helmet title="Playlist videos | Ugram" />
       <section className={style.section}>
         <div className={style.cardWrapper}>
           {!!items?.length &&
@@ -61,7 +71,6 @@ const PlayList: React.FC = () => {
               </button>
             ))}
           {!items?.length &&
-            !!Object.keys(userInfo).length &&
             [...new Array(18)].map((_, i) => (
               <button className={style.card} key={i}>
                 <YoutubeCard
@@ -72,34 +81,32 @@ const PlayList: React.FC = () => {
                 />
               </button>
             ))}
-          {!Object.keys(userInfo).length && <div>Please sign in</div>}
         </div>
-        <UgramModal
-          isShow={isShowModal}
-          onCloseButtonHandler={HandleModalClick}
-        >
-          {!!items?.length && (
-            <YoutubePlayer
-              title={items[selectIndex].snippet.title}
-              description={items[selectIndex].snippet.description}
-              videoId={items[selectIndex].snippet.resourceId.videoId}
-              channelTitle={items[selectIndex].snippet.channelTitle}
-              handlePreviousButtonTap={
-                selectIndex !== 0
-                  ? handleNextPreviousButtonTap(selectIndex - 1)
-                  : undefined
-              }
-              handleNextButtonTap={
-                selectIndex < items.length - 1
-                  ? handleNextPreviousButtonTap(selectIndex + 1)
-                  : undefined
-              }
-            />
-          )}
-        </UgramModal>
+        {isShowModal && (
+          <UgramModal onCloseButtonHandler={HandleModalClick}>
+            {!!items?.length && (
+              <YoutubePlayer
+                title={items[selectIndex].snippet.title}
+                description={items[selectIndex].snippet.description}
+                videoId={items[selectIndex].snippet.resourceId.videoId}
+                channelTitle={items[selectIndex].snippet.channelTitle}
+                handlePreviousButtonTap={
+                  selectIndex !== 0
+                    ? handleNextPreviousButtonTap(selectIndex - 1)
+                    : undefined
+                }
+                handleNextButtonTap={
+                  selectIndex < items.length - 1
+                    ? handleNextPreviousButtonTap(selectIndex + 1)
+                    : undefined
+                }
+              />
+            )}
+          </UgramModal>
+        )}
       </section>
     </>
   );
 };
 
-export default PlayList;
+export default PlayListId;

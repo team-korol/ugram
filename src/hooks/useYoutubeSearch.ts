@@ -3,7 +3,7 @@ import { getSearch } from '../apis';
 
 type useYouTubeSearchProps = {
   token: string | undefined;
-  query: string | undefined;
+  query: string | null;
 };
 
 type item = {

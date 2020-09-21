@@ -2,23 +2,31 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import React, { useCallback, useContext, useState } from 'react';
 import { RiArrowLeftSLine, RiCloseLine, RiSearch2Line } from 'react-icons/ri';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import '../../animation/index.css';
 import { MyContext } from '../../App';
 import googleSiginInImage from '../../assets/btn_google_signin.png';
 import logo from '../../assets/logo_full.svg';
 import { ICON, PAGE_URL, SHARE_URL_PATTERN } from '../../constants';
+import LoadingSpinner from '../LoadingSpinner';
+import UgramModal from '../UgramModal';
+import UserInfoCard from '../UserInfoCard';
 import style from './index.module.css';
 
 const Header: React.FC = () => {
   const history = useHistory();
-  const location = useLocation();
-  const { userInfo, setSerchQuery, serchChannelInfo } = useContext(MyContext);
+  const { userInfo, isGoogleAuthPending, headerText, setUserInfo } = useContext(
+    MyContext
+  );
 
   // Ugram logo関連
   const handleLogoClick = useCallback(() => {
     history.push(PAGE_URL.TOP);
+  }, [history]);
+
+  const handleBuckIconClick = useCallback(() => {
+    history.goBack();
   }, [history]);
 
   // ログイン関連
@@ -54,106 +62,141 @@ const Header: React.FC = () => {
       event.preventDefault();
       if (SHARE_URL_PATTERN.test(value)) {
         const videoId = value.split(SHARE_URL_PATTERN)[1].split(/\?/)[0];
-        setSerchQuery && setSerchQuery(videoId);
-        history.push(PAGE_URL.SINGLE);
+        history.push(`${PAGE_URL.SINGLE}/${videoId}`);
       } else {
-        setSerchQuery && setSerchQuery(value);
-        history.push(PAGE_URL.SEARCH);
+        history.push({
+          pathname: PAGE_URL.SEARCH,
+          search: `?q=${value}`,
+        });
       }
     },
-    [value, setSerchQuery, history]
+    [value, history]
   );
 
+  // userIcon関連
+  const [showUserInfo, isShowUserInfo] = useState(false);
+  const handleUserIconClick = useCallback(() => {
+    isShowUserInfo(true);
+  }, []);
+
+  const onCloseButtonHandler = useCallback(() => {
+    isShowUserInfo(false);
+  }, []);
+  const handleSignOutClick = useCallback(() => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        setUserInfo && setUserInfo({});
+        isShowUserInfo(false);
+      })
+      .catch((error) => {
+        console.error(error.code, error.message);
+      });
+  }, [setUserInfo]);
+
   return (
-    <header className={style.header}>
-      <div className={style.head}>
-        {location.pathname === PAGE_URL.CHANNEL && (
-          <>
+    <>
+      <header className={style.header}>
+        <div className={style.head}>
+          {!!headerText && (
+            <>
+              <button
+                className={style.backIcon}
+                tabIndex={0}
+                onClick={handleBuckIconClick}
+              >
+                <RiArrowLeftSLine size="30px" />
+              </button>
+              <h3 className={style.headerTitle}>{headerText}</h3>
+            </>
+          )}
+          {!headerText && (
+            <h1 className={style.link}>
+              <button onClick={handleLogoClick} tabIndex={0}>
+                <img
+                  src={logo}
+                  alt="ugram"
+                  width="100px"
+                  height="30px"
+                  loading="lazy"
+                />
+              </button>
+            </h1>
+          )}
+          {!userInfo?.user && !isGoogleAuthPending && (
             <button
-              className={style.backIcon}
+              className={style.googleSigin}
+              onClick={handleSignInButtonClick}
               tabIndex={0}
-              onClick={handleLogoClick}
             >
-              <RiArrowLeftSLine size="30px" />
+              <img src={googleSiginInImage} alt="google sigin in button" />
             </button>
-            <h3 className={style.channelTitle}>
-              {serchChannelInfo?.snippet.title}
-            </h3>
-          </>
-        )}
-        {location.pathname !== PAGE_URL.CHANNEL && (
-          <h1 className={style.link}>
-            <button onClick={handleLogoClick} tabIndex={0}>
-              <img
-                src={logo}
-                alt="ugram"
-                width="100px"
-                height="30px"
-                loading="lazy"
-              />
-            </button>
-          </h1>
-        )}
-        {!userInfo?.user && (
-          <button
-            className={style.googleSigin}
-            onClick={handleSignInButtonClick}
-            tabIndex={0}
-          >
-            <img src={googleSiginInImage} alt="google sigin in button" />
-          </button>
-        )}
-        {!!userInfo?.user && (
-          <>
-            <img
-              className={style.userIcon}
-              src={userInfo?.user?.photoURL}
-              alt="user Icon"
+          )}
+          {!userInfo?.user && isGoogleAuthPending && <LoadingSpinner />}
+          {!!userInfo?.user && (
+            <>
+              <button
+                className={style.userIcon}
+                tabIndex={0}
+                onClick={handleUserIconClick}
+              >
+                <img
+                  className={style.userIconImage}
+                  src={userInfo?.user?.photoURL}
+                  alt="user Icon"
+                />
+              </button>
+              {iconStatus === ICON.SERCH && (
+                <button
+                  className={style.navIcon}
+                  onClick={handleIconClick(ICON.CLOSE)}
+                  tabIndex={0}
+                >
+                  <RiSearch2Line size="30px" />
+                </button>
+              )}
+              {iconStatus === ICON.CLOSE && (
+                <button
+                  className={style.navIcon}
+                  onClick={handleIconClick(ICON.SERCH)}
+                  tabIndex={0}
+                >
+                  <RiCloseLine size="30px" />
+                </button>
+              )}
+            </>
+          )}
+        </div>
+        <CSSTransition
+          in={isSearchOpened}
+          timeout={100}
+          classNames="glowAnimation"
+          unmountOnExit
+          onExited={() => setIsSearchOpened(false)}
+        >
+          <form className={style.form} onSubmit={handleSubmit}>
+            <input
+              className={style.input}
+              placeholder="Search"
+              type="text"
+              value={value}
+              onChange={handleChange}
+              tabIndex={0}
+              aria-label="Search"
             />
-            {iconStatus === ICON.SERCH && (
-              <button
-                className={style.navIcon}
-                onClick={handleIconClick(ICON.CLOSE)}
-                tabIndex={0}
-              >
-                <RiSearch2Line size="30px" />
-              </button>
-            )}
-            {iconStatus === ICON.CLOSE && (
-              <button
-                className={style.navIcon}
-                onClick={handleIconClick(ICON.SERCH)}
-                tabIndex={0}
-              >
-                <RiCloseLine size="30px" />
-              </button>
-            )}
-          </>
-        )}
-      </div>
-      <CSSTransition
-        in={isSearchOpened}
-        timeout={100}
-        classNames="glowAnimation"
-        unmountOnExit
-        onExited={() => setIsSearchOpened(false)}
-      >
-        <form className={style.form} onSubmit={handleSubmit}>
-          <input
-            className={style.input}
-            placeholder="Search"
-            type="text"
-            value={value}
-            onChange={handleChange}
-            tabIndex={0}
-            aria-label="Search"
-          />
-          <button className={style.submitButton} type="submit" tabIndex={0}>
-            <RiSearch2Line size="30px" fill="#fff" />
-          </button>
-        </form>
-      </CSSTransition>
-    </header>
+            <button className={style.submitButton} type="submit" tabIndex={0}>
+              <RiSearch2Line size="30px" fill="#fff" />
+            </button>
+          </form>
+        </CSSTransition>
+      </header>
+      {showUserInfo && (
+        <UgramModal onCloseButtonHandler={onCloseButtonHandler}>
+          <UserInfoCard onClick={handleSignOutClick} />
+        </UgramModal>
+      )}
+    </>
   );
 };
 

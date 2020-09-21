@@ -1,8 +1,39 @@
 # Ugram
+<img width="200" src="https://user-images.githubusercontent.com/45055030/93709558-18ddea80-fb7a-11ea-8c8e-43a6ca6c59e7.png">
 
-<img width="300" src="https://user-images.githubusercontent.com/45055030/89927896-fb943300-dc41-11ea-90ac-8b89d694faf5.png">
+## Ugramについて🙌
+### モチベージョン🔥
+関連動画が表示されることで、気がついたら無限に時間が消費される
+↓
+関連動画の表示されないyoutube playerがあればHAPPYなのでは？
+### 特徴😎
+自分のサブスクライブしているチャンネルの動画だけを表示することにフォーカスすることで、ほんとにみたいものだけを見れるようにしました
+### 機能🥳
+- 自分のサブスクライブしているチャンネルの最新50件の表示
+- 自分のサブスクライブしているチャンネルのplaylistの表示
+- 検索(urlに共有用のリンクを貼ることで、その動画を一件だけ検索することもできます)
 
-### Ugram is youtube player
+
+# for korol developer💻
+## 資料📓
+基本的な資料は[こちら](https://docs.google.com/presentation/d/1UJl2CFMmurC_wt9SLFuVZiBxP_5TB-rRGzrfhM0_4gQ/edit#slide=id.g53564326cf_0_55)にあります。  
+権限がない場合は、slack等でご連絡ください
+
+## 構成について📌
+create-react-app(以後CRA)の構成で動くように作っています。
+
+## ルール📝
+- pages配下にはなるべくpathにしたがって、フォルダを作成していきます！  
+`:id`と言ったページの場合は`_id`としてください。  
+理由としては、CRAで使えるcss-modulesの設定では、  
+`[fileName]_[className]__[Hash]`となってしまい、  
+`:`をつけたfile名ではcssのclass名としては不適説になるためです。
+`eject`して`localIdentName`を変更したり、  
+`react-app-rewire`を用いて上書きすることもできますが  
+reactのアップデート等で問題が発生した時のリスクを鑑みて`_`とすることにしました.
+- そのほかは、現在の構成に合わせて作成していただけると幸いです🙇‍♂️
+
+# 以下CRAした際のreadmeをそのまま載せてます
 
 ## Available Scripts
 

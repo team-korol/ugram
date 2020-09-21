@@ -41,6 +41,7 @@ body {
 ul[class],
 ol[class] {
   list-style: none;
+  list-style-type: none;
 }
  
 /* A elements that don't have a class get default styles */
@@ -77,6 +78,12 @@ button {
   align-items: unset;
   appearance: none;
   max-height: 100%;
+}
+
+a {
+  background-color: transparent;
+  text-decoration: none;
+  color: inherit;
 }
 
 /* reset */

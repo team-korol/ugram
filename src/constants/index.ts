@@ -8,11 +8,9 @@ export enum PAGE_URL {
   TOP = '/',
   HOME = '/home',
   SEARCH = '/search',
-  CHANNEL = '/channel',
-  SINGLE = '/single',
-  PLAYLIST_HOME = '/playlist/home',
-  PLAYLIST_INFO = '/playlist/info',
-  PLAYLIST = '/playlist/item',
+  VIDEOS_SUBSCRIPTIONS = '/videos/subscriptions',
+  SINGLE = '/Single/videoId',
+  PLAYLIST_SUBSCRIPTIONS = '/playlist/subscriptions',
 }
 
 export enum ICON {

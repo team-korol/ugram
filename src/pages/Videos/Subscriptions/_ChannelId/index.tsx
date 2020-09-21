@@ -1,17 +1,17 @@
 import React, { useCallback, useContext, useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import { MyContext } from '../../App';
-import UgramModal from '../../components/UgramModal';
-import YoutubeCard from '../../components/YoutubeCard';
-import YoutubePlayer from '../../components/YoutubePlayer';
+import { MyContext } from '../../../../App';
+import UgramModal from '../../../../components/UgramModal';
+import YoutubeCard from '../../../../components/YoutubeCard';
+import YoutubePlayer from '../../../../components/YoutubePlayer';
 import style from './index.module.css';
-import { useYouTubeSearch } from '../../hooks/useYoutubeSearch';
-import { useQuery } from '../../hooks/useQuery';
+import { useYoutubeSearchByChannelId } from '../../../../hooks/useYoutubeSearchByChannelId';
+import { RouteComponentProps } from 'react-router-dom';
 
-const Search: React.FC = () => {
+type Props = {} & RouteComponentProps<{ channelId: string }>;
+
+const ChannelId: React.FC<Props> = ({ match }) => {
   const { userInfo, setHeaderText } = useContext(MyContext);
-  setHeaderText?.('SEARCH');
-
   const onKeyDown = () => setIsShowModal(false);
   useEffect(() => {
     document.addEventListener('keydown', onKeyDown);
@@ -22,7 +22,6 @@ const Search: React.FC = () => {
   const HandleModalClick = useCallback(() => {
     setIsShowModal(false);
   }, [setIsShowModal]);
-
   const handleCardClick = useCallback(
     (index) => () => {
       setSelectIndex(index);
@@ -36,18 +35,23 @@ const Search: React.FC = () => {
     },
     [setSelectIndex]
   );
-  const query = useQuery();
-  const items = useYouTubeSearch({
+
+  const items = useYoutubeSearchByChannelId({
     token: userInfo?.credential?.accessToken,
-    query: query.get('q'),
+    channelId: match.params.channelId,
   });
+
+  if (!!items?.length) {
+    setHeaderText?.(items?.[0].snippet.channelTitle);
+  }
+
   return (
     <>
-      <Helmet title="Search | Ugram" />
+      <Helmet title="Videos Channel | Ugram" />
       <section className={style.section}>
         <div className={style.cardWrapper}>
           {!!items?.length &&
-            items.map((data, i: number) => (
+            items.map((item, i: number) => (
               <button
                 className={style.card}
                 key={i}
@@ -55,11 +59,11 @@ const Search: React.FC = () => {
                 tabIndex={0}
               >
                 <YoutubeCard
-                  title={data.snippet.title}
-                  thumbnailPath={data.snippet.thumbnails.high.url}
-                  width={data.snippet.thumbnails.high.width}
-                  height={data.snippet.thumbnails.high.height}
-                  channelTitle={data.snippet.channelTitle}
+                  title={item.snippet.title}
+                  thumbnailPath={item.snippet.thumbnails.high.url}
+                  width={item.snippet.thumbnails.high.width}
+                  height={item.snippet.thumbnails.high.height}
+                  channelTitle={item.snippet.channelTitle}
                 />
               </button>
             ))}
@@ -102,4 +106,4 @@ const Search: React.FC = () => {
   );
 };
 
-export default Search;
+export default ChannelId;

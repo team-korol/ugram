@@ -21,5 +21,6 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-serviceWorker.register();
+const event = new Event('newContentAvailable');
+const onUpdate = () => window.dispatchEvent(event);
+serviceWorker.register({ onUpdate });

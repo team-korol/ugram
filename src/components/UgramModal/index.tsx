@@ -5,7 +5,6 @@ import classNames from 'classnames';
 type Props = {
   className?: string;
   children: React.ReactNode;
-  isShow: boolean;
   onCloseButtonHandler?: (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => void;
@@ -14,7 +13,6 @@ type Props = {
 const UgramModal: React.FC<Props> = ({
   className,
   children,
-  isShow,
   onCloseButtonHandler,
 }: Props) => {
   const handleClick = useCallback(
@@ -28,14 +26,12 @@ const UgramModal: React.FC<Props> = ({
   );
   return (
     <>
-      {isShow && (
-        <div
-          className={classNames([style.modal], { className })}
-          onClick={handleClick}
-        >
-          {children}
-        </div>
-      )}
+      <div
+        className={classNames([style.modal], { className })}
+        onClick={handleClick}
+      >
+        {children}
+      </div>
     </>
   );
 };
