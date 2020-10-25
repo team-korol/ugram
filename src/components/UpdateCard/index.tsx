@@ -12,7 +12,7 @@ const UpdateCard: React.FC<Props> = ({ onClick, text, buttonText }) => {
     <div className={style.card}>
       <div className={style.wrapper}>
         <p className={style.text}>{text}</p>
-        <button className={style.button} onClick={onClick} tabIndex={0}>
+        <button className={style.button} onClick={onClick}>
           {buttonText}
         </button>
       </div>

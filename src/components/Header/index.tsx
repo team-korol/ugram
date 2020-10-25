@@ -101,11 +101,7 @@ const Header: React.FC = () => {
         <div className={style.head}>
           {!!headerText && (
             <>
-              <button
-                className={style.backIcon}
-                tabIndex={0}
-                onClick={handleBuckIconClick}
-              >
+              <button className={style.backIcon} onClick={handleBuckIconClick}>
                 <RiArrowLeftSLine size="30px" />
               </button>
               <h3 className={style.headerTitle}>{headerText}</h3>
@@ -113,7 +109,7 @@ const Header: React.FC = () => {
           )}
           {!headerText && (
             <h1 className={style.link}>
-              <button onClick={handleLogoClick} tabIndex={0}>
+              <button onClick={handleLogoClick}>
                 <img
                   src={logo}
                   alt="ugram"
@@ -128,7 +124,6 @@ const Header: React.FC = () => {
             <button
               className={style.googleSigin}
               onClick={handleSignInButtonClick}
-              tabIndex={0}
             >
               <img src={googleSiginInImage} alt="google sigin in button" />
             </button>
@@ -136,11 +131,7 @@ const Header: React.FC = () => {
           {!userInfo?.user && isGoogleAuthPending && <LoadingSpinner />}
           {!!userInfo?.user && (
             <>
-              <button
-                className={style.userIcon}
-                tabIndex={0}
-                onClick={handleUserIconClick}
-              >
+              <button className={style.userIcon} onClick={handleUserIconClick}>
                 <img
                   className={style.userIconImage}
                   src={userInfo?.user?.photoURL}
@@ -151,7 +142,6 @@ const Header: React.FC = () => {
                 <button
                   className={style.navIcon}
                   onClick={handleIconClick(ICON.CLOSE)}
-                  tabIndex={0}
                 >
                   <RiSearch2Line size="30px" />
                 </button>
@@ -160,7 +150,6 @@ const Header: React.FC = () => {
                 <button
                   className={style.navIcon}
                   onClick={handleIconClick(ICON.SERCH)}
-                  tabIndex={0}
                 >
                   <RiCloseLine size="30px" />
                 </button>
@@ -182,10 +171,9 @@ const Header: React.FC = () => {
               type="text"
               value={value}
               onChange={handleChange}
-              tabIndex={0}
               aria-label="Search"
             />
-            <button className={style.submitButton} type="submit" tabIndex={0}>
+            <button className={style.submitButton} type="submit">
               <RiSearch2Line size="30px" fill="#fff" />
             </button>
           </form>

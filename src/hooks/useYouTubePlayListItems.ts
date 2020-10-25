@@ -21,7 +21,7 @@ type Item = {
         width: string;
         height: number;
       };
-      edium: {
+      medium: {
         url: string;
         width: string;
         height: number;

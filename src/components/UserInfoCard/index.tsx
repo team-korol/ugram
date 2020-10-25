@@ -8,7 +8,7 @@ type Props = {
 const UserInfoCard: React.FC<Props> = ({ onClick }) => {
   return (
     <div className={style.card}>
-      <button className={style.button} onClick={onClick} tabIndex={0}>
+      <button className={style.button} onClick={onClick}>
         サインアウト
       </button>
       <a

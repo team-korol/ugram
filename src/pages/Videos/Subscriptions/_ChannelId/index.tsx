@@ -56,13 +56,12 @@ const ChannelId: React.FC<Props> = ({ match }) => {
                 className={style.card}
                 key={i}
                 onClick={handleCardClick(i)}
-                tabIndex={0}
               >
                 <YoutubeCard
                   title={item.snippet.title}
-                  thumbnailPath={item.snippet.thumbnails.high.url}
-                  width={item.snippet.thumbnails.high.width}
-                  height={item.snippet.thumbnails.high.height}
+                  thumbnailPath={item.snippet.thumbnails.medium.url}
+                  width={item.snippet.thumbnails.medium.width}
+                  height={item.snippet.thumbnails.medium.height}
                   channelTitle={item.snippet.channelTitle}
                 />
               </button>

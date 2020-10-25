@@ -59,13 +59,12 @@ const PlayListId: React.FC<Props> = ({ match }) => {
                 className={style.card}
                 key={i}
                 onClick={handleCardClick(i)}
-                tabIndex={0}
               >
                 <YoutubeCard
                   title={data.snippet.title}
-                  thumbnailPath={data.snippet.thumbnails.high.url}
-                  width={data.snippet.thumbnails.high.width}
-                  height={data.snippet.thumbnails.high.height}
+                  thumbnailPath={data.snippet.thumbnails.medium.url}
+                  width={data.snippet.thumbnails.medium.width}
+                  height={data.snippet.thumbnails.medium.height}
                   channelTitle={data.snippet.channelTitle}
                 />
               </button>

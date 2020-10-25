@@ -29,7 +29,7 @@ const Subscriptions: React.FC = () => {
               >
                 <YoutubeCreatorCard
                   title={item.snippet.title}
-                  thumbnailPath={item.snippet.thumbnails.high.url}
+                  thumbnailPath={item.snippet.thumbnails.medium.url}
                   channelTitle={item.snippet.channelTitle}
                 />
               </Link>
