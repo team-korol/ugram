@@ -23,8 +23,8 @@ const PlayListSubscriptionsChannelId = React.lazy(() =>
 const PlayListSubscriptionsChannelIdPlaylistIdPlaylistId = React.lazy(() =>
   import('./pages/PlayList/Subscriptions/_ChannelId/PlaylistId/_PlaylistId')
 );
-
 const SinglePlayer = React.lazy(() => import('./pages/SinglePlayer'));
+const PrivacyPolicy = React.lazy(() => import('./pages/PrivacyPolicy'));
 
 type UserInfo = {
   [k: string]: any;
@@ -99,6 +99,12 @@ const App: React.FC = () => {
                   path={PAGE_URL.SINGLE + '/:videoId'}
                   component={SinglePlayer}
                 />
+                <Route
+                  exact
+                  path={PAGE_URL.PRIVACY_POLICY}
+                  component={PrivacyPolicy}
+                />
+                P
                 <Route path="*" component={() => <>404 NOT FOUND</>} />
               </Switch>
             </main>

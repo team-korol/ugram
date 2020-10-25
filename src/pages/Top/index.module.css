@@ -21,3 +21,15 @@
   background-blend-mode: lighten;
   background-size: cover;
 }
+
+.privacyPolicy {
+  max-width: 320px;
+  margin: auto;
+  padding: 16px 16px 0px;
+  color: #000000;
+  background: linear-gradient(to left, #06C1FF, 80%,#FF02FF);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border-style: solid;
+  border-width: 0px;
+}

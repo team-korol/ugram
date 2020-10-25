@@ -17,11 +17,12 @@
   padding: 8px 16px;
   border-radius: 4px;
   text-align: center;
+  margin-bottom: 16px;
 }
 
 .youtube {
   background: #ff0102;
-  margin-top: 16px;
+  margin-bottom: 0px;
 }
 
 

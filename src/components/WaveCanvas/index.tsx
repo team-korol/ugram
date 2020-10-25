@@ -1,6 +1,25 @@
 import React, { useRef, useLayoutEffect } from 'react';
 import style from './index.module.css';
 
+/**
+ * 利用する際は以下のように情報を渡すようにする
+ * const waveConfig = {
+ *   UNIT: 30,
+ *   waves: [
+ *     {
+ *       color: '#00c2ff',
+ *       zoom: 1.5,
+ *       delay: 0,
+ *     },
+ *     {
+ *       color: '#fb14ff',
+ *       zoom: 0.7,
+ *       delay: 200,
+ *     },
+ *   ],
+ * };
+ */
+
 type Props = {
   waveConfig: WaveConfig;
 };

@@ -40,6 +40,9 @@ const Page: React.FC = ({ children }) => {
   }, [pathname]);
 
   useEffect(() => {
+    if (pathname === PAGE_URL.PRIVACY_POLICY) {
+      return;
+    }
     if (!userInfo?.user) {
       history.push(PAGE_URL.TOP);
     }

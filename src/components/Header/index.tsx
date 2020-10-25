@@ -74,13 +74,13 @@ const Header: React.FC = () => {
   );
 
   // userIcon関連
-  const [showUserInfo, isShowUserInfo] = useState(false);
+  const [showUserInfo, setShowUserInfo] = useState(false);
   const handleUserIconClick = useCallback(() => {
-    isShowUserInfo(true);
+    setShowUserInfo(true);
   }, []);
 
   const onCloseButtonHandler = useCallback(() => {
-    isShowUserInfo(false);
+    setShowUserInfo(false);
   }, []);
   const handleSignOutClick = useCallback(() => {
     firebase
@@ -88,7 +88,7 @@ const Header: React.FC = () => {
       .signOut()
       .then(() => {
         setUserInfo && setUserInfo({});
-        isShowUserInfo(false);
+        setShowUserInfo(false);
       })
       .catch((error) => {
         console.error(error.code, error.message);
@@ -181,7 +181,10 @@ const Header: React.FC = () => {
       </header>
       {showUserInfo && (
         <UgramModal onCloseButtonHandler={onCloseButtonHandler}>
-          <UserInfoCard onClick={handleSignOutClick} />
+          <UserInfoCard
+            onSignOutClick={handleSignOutClick}
+            onCloseButtonClick={onCloseButtonHandler}
+          />
         </UgramModal>
       )}
     </>
