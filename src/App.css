@@ -6,6 +6,14 @@
   min-height: 100vh;
 }
 
+/* Safari用のハックは、Chromeに適用されないようにする */
+@supports (-webkit-touch-callout: none) {
+  main {
+    /* Safari用のハック */
+    height: -webkit-fill-available;
+  }
+}
+
 .spacer {
   flex-grow: 1;
   flex-shrink: 1;
