@@ -14,7 +14,6 @@ const Home: React.FC = () => {
       <Helmet title="Top | Ugram" />
       <section className={style.section}>
         <ul className={style.list}>
-          <li className={style.itemTitle}>MENU</li>
           <li className={style.item}>
             <Link className={style.link} to={PAGE_URL.VIDEOS_SUBSCRIPTIONS}>
               VIDEOS
@@ -23,6 +22,11 @@ const Home: React.FC = () => {
           <li className={style.item}>
             <Link className={style.link} to={PAGE_URL.PLAYLIST_SUBSCRIPTIONS}>
               PLAY LIST
+            </Link>
+          </li>
+          <li className={style.item}>
+            <Link className={style.link} to={PAGE_URL.PRIVACY_POLICY}>
+              PRIVACY POLICY
             </Link>
           </li>
         </ul>

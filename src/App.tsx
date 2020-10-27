@@ -107,6 +107,7 @@ const App: React.FC = () => {
                 P
                 <Route path="*" component={() => <>404 NOT FOUND</>} />
               </Switch>
+              <div className="spacer" />
             </main>
           </Page>
         </Suspense>

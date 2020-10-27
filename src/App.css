@@ -1,3 +1,12 @@
 .main {
+  display: flex;
+  flex-direction: column;
   padding-top: 64px;
+  background-color: #EBECF0;
+  min-height: 100vh;
+}
+
+.spacer {
+  flex-grow: 1;
+  flex-shrink: 1;
 }

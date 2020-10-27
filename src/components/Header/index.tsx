@@ -7,7 +7,7 @@ import { CSSTransition } from 'react-transition-group';
 import '../../animation/index.css';
 import { MyContext } from '../../App';
 import googleSiginInImage from '../../assets/btn_google_signin.png';
-import logo from '../../assets/logo_full.svg';
+import logo from '../../assets/logo_icon.svg';
 import { ICON, PAGE_URL, SHARE_URL_PATTERN } from '../../constants';
 import LoadingSpinner from '../LoadingSpinner';
 import UgramModal from '../UgramModal';
@@ -113,7 +113,7 @@ const Header: React.FC = () => {
                 <img
                   src={logo}
                   alt="ugram"
-                  width="100px"
+                  width="30px"
                   height="30px"
                   loading="lazy"
                 />
