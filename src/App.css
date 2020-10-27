@@ -10,7 +10,7 @@
 @supports (-webkit-touch-callout: none) {
   main {
     /* Safari用のハック */
-    height: -webkit-fill-available;
+    min-height: -webkit-fill-available;
   }
 }
 
