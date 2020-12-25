@@ -62,6 +62,7 @@ const useYouTubeSearch = ({
           maxResults: 50,
           type: 'video',
           order: 'date',
+          regionCode: 'jp',
         });
         setItems(items);
       } catch (error) {
