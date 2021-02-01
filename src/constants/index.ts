@@ -20,3 +20,4 @@ export enum ICON {
 }
 
 export const SHARE_URL_PATTERN = /https:\/\/youtu.be\//;
+export const YOUTUBE_URL_PATTERN = /https:\/\/www.youtube.com\/watch\?v=/;

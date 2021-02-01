@@ -8,7 +8,12 @@ import '../../animation/index.css';
 import { MyContext } from '../../App';
 import googleSiginInImage from '../../assets/btn_google_signin.png';
 import logo from '../../assets/logo_icon.svg';
-import { ICON, PAGE_URL, SHARE_URL_PATTERN } from '../../constants';
+import {
+  ICON,
+  PAGE_URL,
+  SHARE_URL_PATTERN,
+  YOUTUBE_URL_PATTERN,
+} from '../../constants';
 import LoadingSpinner from '../LoadingSpinner';
 import UgramModal from '../UgramModal';
 import UserInfoCard from '../UserInfoCard';
@@ -62,6 +67,9 @@ const Header: React.FC = () => {
       event.preventDefault();
       if (SHARE_URL_PATTERN.test(value)) {
         const videoId = value.split(SHARE_URL_PATTERN)[1].split(/\?/)[0];
+        history.push(`${PAGE_URL.SINGLE}/${videoId}`);
+      } else if (YOUTUBE_URL_PATTERN.test(value)) {
+        const videoId = value.split(YOUTUBE_URL_PATTERN)[1].split(/\?v=/)[0];
         history.push(`${PAGE_URL.SINGLE}/${videoId}`);
       } else {
         history.push({
