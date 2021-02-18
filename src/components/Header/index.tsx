@@ -13,6 +13,7 @@ import {
   PAGE_URL,
   SHARE_URL_PATTERN,
   YOUTUBE_URL_PATTERN,
+  YOUTUBE_MOBILE_URL_PATTERN,
 } from '../../constants';
 import LoadingSpinner from '../LoadingSpinner';
 import UgramModal from '../UgramModal';
@@ -70,6 +71,11 @@ const Header: React.FC = () => {
         history.push(`${PAGE_URL.SINGLE}/${videoId}`);
       } else if (YOUTUBE_URL_PATTERN.test(value)) {
         const videoId = value.split(YOUTUBE_URL_PATTERN)[1].split(/\?v=/)[0];
+        history.push(`${PAGE_URL.SINGLE}/${videoId}`);
+      } else if (YOUTUBE_MOBILE_URL_PATTERN.test(value)) {
+        const videoId = value
+          .split(YOUTUBE_MOBILE_URL_PATTERN)[1]
+          .split(/\?v=/)[0];
         history.push(`${PAGE_URL.SINGLE}/${videoId}`);
       } else {
         history.push({
